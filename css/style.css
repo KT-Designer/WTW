@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 
+body {
+    background-color: #1B1E25;
+}
+
 
 /* Header */
 .menu_MB {
@@ -185,9 +189,7 @@
 /* Hero */
 /* 輪播點 */
 
-body {
-    background-color: #1B1E25;
-}
+
 
 
 .hero {
@@ -195,6 +197,7 @@ body {
     height: 620px;
     display: block;
     justify-content: center;
+    margin-top: -80px;
 
 }
 
@@ -1008,6 +1011,7 @@ footer p {
     .swiper-pagination {
         display: none;
     }
+
 
     .info .story {
         display: none;
