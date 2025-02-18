@@ -1,0 +1,1031 @@
+/* 字體 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+
+
+/* Header */
+.menu_MB {
+    display: none;
+}
+
+
+.navbar {
+    position: sticky;
+    justify-content: space-between;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0px 0px;
+    background-color: #1b1e25dc;
+    box-shadow: 0px 2px 8px 0px #0000007A;
+    /* 背景模糊 */
+    backdrop-filter: blur(4px);
+
+
+}
+
+.navbar .container {
+    display: flex;
+    align-items: center;
+    padding-left: 8%;
+}
+
+
+.navbar form {
+    width: 100%;
+}
+
+
+.searchLabelWrap {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    height: 38px;
+    padding: 0px 16px;
+    border: 1px solid #686B72;
+    border-radius: 8px;
+
+
+}
+
+.searchLabelWrap img {
+    width: 24px;
+    height: 24px;
+}
+
+
+.searchInput {
+    border: 0;
+    outline: 0;
+    /* focus style on parent */
+    background: transparent;
+    font: inherit;
+    width: 100%;
+    box-sizing: border-box;
+    color: #C10171;
+    font-family: 'Noto Sans TC';
+    font-size: 14px;
+}
+
+
+.visually-hidden {
+    position: absolute;
+    left: -9999px;
+}
+
+/* 去input除預設的X */
+.searchInput::-webkit-search-cancel-button {
+    display: none;
+}
+
+.searchInput::-moz-search-cancel-button {
+    display: none;
+}
+
+.navbar .list {
+    display: flex;
+    padding: 0px 10% 0px 10px;
+    align-items: baseline;
+}
+
+
+
+.navbar .list li {
+    width: 78px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+
+
+}
+
+.navbar .list li a {
+    color: #ffffff;
+    font-family: 'Noto Sans TC';
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.5s;
+
+
+}
+
+
+.navbar .list li:hover a {
+    color: #C10171;
+}
+
+
+
+
+.navbar .list li:not(.vip):not(.active)::after {
+    /* 除了.vip的lv不要有效果 */
+    position: absolute;
+    content: '';
+    bottom: 0px;
+    left: 8px;
+    width: 60px;
+    height: 3px;
+    border-radius: 10px;
+    background-color: #C10171;
+    opacity: 0;
+    transition: 0.5s;
+
+
+}
+
+.navbar .list li:not(.vip):hover::after {
+    /* 除了.vip的lv不要有效果 */
+    opacity: 1;
+
+
+}
+
+
+
+
+
+
+.navbar .active::after {
+    position: absolute;
+    content: '';
+    bottom: 0px;
+    left: 8px;
+    width: 60px;
+    height: 3px;
+    border-radius: 10px;
+    background-color: #C10171;
+
+}
+
+
+
+
+
+
+
+.navbar .vip a {
+    width: 42px;
+    height: 42px;
+    background-color: #161616;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+/* Hero */
+/* 輪播點 */
+
+body {
+    background-color: #1B1E25;
+}
+
+
+.hero {
+    width: 100%;
+    height: 620px;
+    display: block;
+    justify-content: center;
+
+}
+
+.info {
+    max-width: 360px;
+    position: absolute;
+    z-index: 1;
+    top: 40%;
+    left: 10%;
+}
+
+.info h1 {
+    font-family: 'Roboto';
+    font-size: 4.375rem;
+    font-weight: 900;
+    background: linear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%);
+    background: -webkit-llinear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.info h2 {
+    font-family: 'Noto Sans TC';
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.info p {
+    font-family: 'Noto Sans TC';
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 24px;
+    color: #ffffff;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    margin-top: 10px;
+}
+
+.info .container {
+    margin-top: 16px;
+    display: flex;
+    gap: 14px;
+}
+
+.info .more {
+    width: 160px;
+    height: 42px;
+    font-family: 'Noto Sans TC';
+    font-size: 1rem;
+    font-weight: 400;
+    color: #ffffff;
+    text-align: center;
+    line-height: 42px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 13px;
+    background: linear-gradient(#161616, #161616), linear-gradient(91.47deg, #c10171, #5c00f2);
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+
+}
+
+.info .add {
+    width: 160px;
+    height: 42px;
+    font-family: 'Noto Sans TC';
+    font-size: 1rem;
+    font-weight: 400;
+    color: #ffffff;
+    text-align: center;
+    line-height: 42px;
+    background-color: #C10171;
+    border-radius: 13px;
+
+}
+
+.swiper-slide {
+    position: relative;
+}
+
+.gradient {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(72.5% 427.7% at 96.33% 50%, rgba(27, 30, 37, 0) 39.58%, rgba(27, 30, 37, 0.93) 94.79%),
+        linear-gradient(360deg, #1B1E25 0%, rgba(27, 30, 37, 0) 29.22%);
+
+}
+
+
+.mySwiper {
+    height: 620px;
+
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 620px;
+    object-fit: cover;
+    object-position: 50% 15%;
+}
+
+
+/* 熱門電影 */
+
+.hotmovie {
+    margin-top: -20px;
+    display: flex;
+    justify-content: center;
+
+}
+
+
+.myprev,
+.mynext {
+    width: 50px;
+    height: 50px;
+    border-radius: 13px;
+    background: #686B721A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myprev {
+    margin-left: 16px;
+}
+
+.mynext {
+    margin-right: 16px;
+}
+
+
+.box {
+    max-width: 1148px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.box h1 {
+    font-size: 20px;
+    font-family: 'Noto Sans TC';
+    color: #ffffff;
+    margin-bottom: 14px;
+
+
+}
+
+
+
+.hotSwiper {
+    max-width: 992px;
+    width: 100%;
+    height: 100%;
+}
+
+
+.box .card {
+    max-width: 150px;
+    text-align: center;
+    height: 100%;
+
+}
+
+
+.box .picbox {
+    position: relative;
+    max-width: 150px;
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    box-shadow: 0px 2px 8px 0px #0000007A;
+    border-radius: 8px;
+
+
+}
+
+.box .picbox img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 8px;
+    display: block;
+}
+
+.box .card_gradient {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(22, 22, 22, 0) 30.58%, rgba(22, 22, 22, 0.98) 100%);
+}
+
+
+.box .score {
+    position: absolute;
+    top: 86%;
+    right: 4px;
+    z-index: 1;
+    width: 36px;
+    height: 20px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 20px;
+    background: linear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%);
+    color: #ffffff;
+    font-family: 'Roboto';
+    font-weight: 600;
+
+}
+
+.box .card .name {
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Noto Sans TC';
+    margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* 熱門韓劇 */
+.hotkorean,
+.hotUSA {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0px;
+}
+
+.hotkorean .box,
+.hotUSA .box {
+    background: #686B721A;
+    border-radius: 20px;
+    padding: 40px 0px;
+}
+
+
+
+/* 熱門台劇、陸劇 */
+.hotchina,
+.hotanime {
+    display: flex;
+    justify-content: center;
+}
+
+.hotchina .box,
+.hotanime .box {
+    padding: 20px 0px;
+}
+
+/* footer */
+footer {
+    padding-top: 100px;
+
+}
+
+footer p {
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Roboto';
+    text-align: center;
+    padding: 16px;
+    background-color: #161616;
+}
+
+
+
+
+/* ========================================================== */
+/* 電影頁_movie.html */
+/* 篩選 */
+.filter {
+    color: #ffffff;
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    background: #686B721A;
+    border-radius: 20px;
+    padding: 24px;
+    margin-top: 42px;
+    box-sizing: border-box;
+
+
+}
+
+
+
+
+.filter .container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.titile_icon {
+    width: 3px;
+    height: 23px;
+    border-radius: 50px;
+    background: linear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%);
+    margin-right: 8px;
+}
+
+.filter h3 {
+    font-size: 16px;
+    font-family: 'Noto Sans TC';
+    font-weight: 400;
+}
+
+
+
+
+.filter .options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 70px);
+    gap: 12px 6px;
+    justify-content: space-evenly;
+    margin-bottom: 28px;
+}
+
+.filter .options p {
+    width: 70px;
+    height: 28px;
+    background-color: #161616;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 28px;
+    font-family: 'Roboto';
+    font-size: 14px;
+    transition: 1s;
+    cursor: pointer;
+
+}
+
+
+.filter .options p:hover {
+    background-color: #C10171;
+
+}
+
+.filter .options .active,
+.sort .active {
+    background: linear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%);
+}
+
+
+
+
+/* 篩選_評分 */
+.filter .score {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter .score .score-left {
+    display: flex;
+    align-items: center;
+}
+
+.filter .score .container {
+    margin-bottom: 0px;
+    margin-right: 28px;
+}
+
+
+.filter .score .range {
+    display: flex;
+    gap: 26px;
+    align-items: center;
+}
+
+.filter .score .range p {
+    font-size: 16px;
+    font-family: 'Roboto';
+}
+
+
+#range {
+    width: 190px;
+    height: 10px;
+    border: 0;
+    border-radius: 100px;
+    background: linear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%);
+    outline: 4px solid #161616;
+}
+
+#range .ui-slider-handle {
+    position: absolute;
+    margin: -3px 0 0 -17px;
+    border-radius: 100px;
+    background: linear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%);
+    color: #fff;
+    border: 0;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    width: 26px;
+    outline: 4px solid #161616;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 0.1s ease;
+    z-index: 1;
+}
+
+#range .ui-slider-handle:hover,
+#range .ui-slider-handle:focus {
+    transform: scale(1.1);
+}
+
+#range .ui-slider-range {
+    background: #161616;
+    border-radius: 100px;
+
+}
+
+.score .search {
+    width: 220px;
+    height: 42px;
+    background: linear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%);
+    box-shadow: 0px 2px 8px 0px #0000007A;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 42px;
+    font-family: 'Noto Sans TC';
+    font-weight: 400;
+    font-size: 16px;
+    cursor: pointer;
+
+
+}
+
+/* 顯示條件 */
+.sort {
+    max-width: 1200px;
+    width: 100%;
+    background: #686B721A;
+    display: flex;
+    gap: 10px;
+    margin: auto;
+    border-radius: 20px;
+    margin-top: 20px;
+    color: #ffffff;
+    padding: 24px;
+    box-sizing: border-box;
+
+}
+
+.sort p {
+    width: 102px;
+    height: 32px;
+    background: #161616;
+    box-shadow: 0px 2px 8px 0px #0000007A;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Noto Sans TC';
+    cursor: pointer;
+    transition: 1s;
+}
+
+.sort p:hover {
+    background: #C10171;
+}
+
+
+/* 影片區 */
+.film {
+    box-sizing: border-box;
+    max-width: 992px;
+    width: 100%;
+    margin: auto;
+
+}
+
+
+.film .list {
+    padding: 50px 16px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 34px 16px;
+
+
+}
+
+.film .card .container {
+    position: relative;
+    box-shadow: 0px 2px 8px 0px #0000007A;
+    border-radius: 8px;
+
+
+
+
+}
+
+.film .card .pic_gradient {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 3 / 4;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(22, 22, 22, 0) 30.58%, rgba(22, 22, 22, 0.98) 100%);
+}
+
+.film .card img {
+    max-width: 300px;
+    width: 100%;
+    max-height: 400px;
+    height: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: fill;
+    border-radius: 8px;
+}
+
+.film .card .score {
+    position: absolute;
+    top: 86%;
+    right: 4px;
+    z-index: 1;
+    width: 36px;
+    height: 20px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 20px;
+    background: linear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%);
+    color: #ffffff;
+    font-family: 'Roboto';
+    font-weight: 600;
+
+}
+
+.film .name {
+    max-width: 150px;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Noto Sans TC';
+    margin-top: 10px;
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+
+}
+
+
+.film .loading {
+    width: 328px;
+    height: 52px;
+    border-radius: 13px;
+    background: linear-gradient(91.47deg, #C10171 3.73%, #5C00F2 100%);
+    box-shadow: 0px 2px 8px 0px #0000007A;
+    color: #ffffff;
+    text-align: center;
+    line-height: 52px;
+    margin: 10px auto 80px;
+    font-size: 18px;
+    font-family: 'Noto Sans TC';
+    font-weight: 400;
+    cursor: pointer;
+
+
+}
+
+
+
+/* ========================================================== */
+/* 我的片單_collect.html */
+/* 顯示條件 */
+
+.collect_sort {
+    max-width: 1200px;
+    width: 100%;
+    background: #686B721A;
+    display: flex;
+    gap: 10px;
+    margin: auto;
+    border-radius: 20px;
+    margin-top: 42px;
+    color: #ffffff;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.collect {
+    margin-bottom: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width:1200px) {
+
+    .myprev,
+    .mynext {
+        display: none;
+    }
+
+}
+
+
+
+
+
+@media screen and (max-width:768px) {
+
+    /* Header */
+    .navbar .container {
+        margin: 0px 16px;
+        padding-left: 0%;
+    }
+
+    .navbar .list {
+        display: flex;
+        padding: 0px 16px 0px 10px;
+    }
+
+
+    /* 熱門電影 */
+    .hotSwiper {
+        padding-left: 16px !important;
+    }
+
+
+
+    /* 電影頁_movie.html */
+    /* 篩選 */
+    .filter {
+        padding: 16px;
+
+    }
+
+
+
+    /* 篩選_評分 */
+    .filter .score {
+        flex-direction: column;
+    }
+
+    .filter .score .score-left {
+        margin-bottom: 36px;
+
+    }
+
+    .filter .score .score-right {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .score .search {
+        width: 100%;
+
+
+    }
+
+
+
+
+
+
+
+
+    /* 顯示條件 */
+    .sort {
+        padding: 16px;
+    }
+
+    .sort .active {
+        margin-left: 0px;
+
+    }
+
+    /* 影片區 */
+    .film .list {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width:576px) {
+    html {
+        font-size: 13px;
+    }
+
+    /* Header */
+    .navbar nav {
+        display: none;
+    }
+
+
+
+
+
+
+    .menu_MB {
+        display: block;
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        background-color: #161616;
+        box-shadow: 0px 2px 8px 0px #0000007A;
+        z-index: 2;
+
+    }
+
+    .menu_MB ul {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+    }
+
+    .menu_MB ul li {
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .menu_MB ul li a {
+        text-decoration: none;
+    }
+
+
+
+
+    .menu_MB ul li a p {
+        color: #686B72;
+
+    }
+
+    .menu_MB ul li:hover p {
+        color: #C10171;
+    }
+
+    .menu_MB ul li:hover path {
+        fill: #C10171;
+
+    }
+
+
+    .menu_MB .vip {
+        width: 38px;
+        height: 38px;
+        background-color: #1B1E25;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    /* Hero */
+
+    .info .story {
+        display: none;
+    }
+
+    .info .container {
+        flex-direction: column;
+    }
+
+    .info .more,
+    .info .add {
+        font-size: 1.3rem;
+    }
+
+    .swiper-slide img {
+        object-position: 70% 100%;
+    }
+
+
+    /* 電影頁_movie.html */
+
+    /* 影片區 */
+    .film .list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+
+
+}
