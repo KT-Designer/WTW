@@ -980,11 +980,13 @@ footer p {
 
     }
 
-    .menu_MB ul li:hover p {
+    .menu_MB ul li:hover p,
+    .menu_MB ul .active {
         color: #C10171;
     }
 
-    .menu_MB ul li:hover path {
+    .menu_MB ul li:hover path,
+    .menu_MB ul li .active path {
         fill: #C10171;
 
     }
