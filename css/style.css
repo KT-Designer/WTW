@@ -381,7 +381,18 @@ body {
     text-align: center;
     box-shadow: 0px 2px 8px 0px #0000007A;
     border-radius: 8px;
+}
 
+
+.box .picbox::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(22, 22, 22, 0) 30.58%, rgba(22, 22, 22, 0.98) 100%);
+    border-radius: 8px;
 
 }
 
@@ -393,15 +404,6 @@ body {
     display: block;
 }
 
-.box .card_gradient {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 8px;
-    background: linear-gradient(180deg, rgba(22, 22, 22, 0) 30.58%, rgba(22, 22, 22, 0.98) 100%);
-}
 
 
 .box .score {
@@ -707,16 +709,21 @@ footer p {
 
 }
 
-.film .card .pic_gradient {
+
+
+.film .card .container::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
     width: 100%;
     height: 100%;
-    aspect-ratio: 3 / 4;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 8px;
     background: linear-gradient(180deg, rgba(22, 22, 22, 0) 30.58%, rgba(22, 22, 22, 0.98) 100%);
+    border-radius: 8px;
+
 }
+
+
 
 .film .card img {
     max-width: 300px;
@@ -801,6 +808,69 @@ footer p {
 .collect {
     margin-bottom: 50px;
 }
+
+
+/* ========================================================== */
+/* 主題館_theme.html */
+.theme {
+    max-width: 1110px;
+    width: 100%;
+    margin: auto;
+}
+
+.theme .list {
+    padding: 47px 16px 100px 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.theme .card {
+    max-width: 720px;
+    max-height: 360px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px 0px #0000007A;
+    position: relative;
+    transition: transform 0.6s ease;
+
+}
+
+.theme .card:hover {
+    transform: translateY(-14px);
+}
+
+
+
+.theme .card::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(22, 22, 22, 0.98) -71.5%, rgba(22, 22, 22, 0) 46.55%, rgba(22, 22, 22, 0.98) 100%);
+    border-radius: 8px;
+
+}
+
+
+.theme .card img {
+    object-fit: cover;
+    width: 100%;
+    border-radius: 8px;
+    aspect-ratio: 2 / 1;
+}
+
+.theme .name {
+    position: absolute;
+    top: 80%;
+    right: 8px;
+    color: #ffffff;
+    font-size: 18px;
+    font-family: 'Noto Sans TC';
+    letter-spacing: 0.2rem;
+}
+
 
 
 
@@ -908,6 +978,15 @@ footer p {
 
 
 
+
+
+    /* ========================================================== */
+    /* 主題館_theme.html */
+
+    .theme .list {
+        grid-template-columns: repeat(2, 1fr);
+
+    }
 
 
 
@@ -1038,6 +1117,15 @@ footer p {
     /* 影片區 */
     .film .list {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    /* ========================================================== */
+    /* 主題館_theme.html */
+
+    .theme .list {
+        grid-template-columns: repeat(1, 1fr);
+
     }
 
 
