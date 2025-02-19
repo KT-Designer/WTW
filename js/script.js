@@ -1,3 +1,21 @@
+// 首頁_index.html
+// 加入片單
+$(document).ready(function () {
+    $(".add").click(function () {
+        if ($(this).text() === "加入片單") {
+            $(this).text("移出片單").css("background-color", "#5C00F2"); // 變成紫色
+        } else {
+            $(this).text("加入片單").css("background-color", "#C10171"); // 變回桃紅色
+        }
+    });
+});
+
+
+
+
+
+
+
 $(document).ready(function () {
     // Hero
     var swiperhero = new Swiper("#hero", {
@@ -38,10 +56,6 @@ $(document).ready(function () {
                 spaceBetween: 12
             }
         }
-
-
-
-
 
     });
 
