@@ -741,9 +741,7 @@ footer p {
 
 
 .film .card img {
-    max-width: 300px;
     width: 100%;
-    max-height: 400px;
     height: 100%;
     aspect-ratio: 3 / 4;
     object-fit: fill;
