@@ -1699,11 +1699,15 @@ footer p {
         margin-bottom: 14px;
     }
 
-    .information .year {
-        flex-direction: column;
-        gap: 16px;
-
+    .info_MB .year_MB .container {
+        margin-right: 10px;
     }
+
+
+
+
+
+
 
     /* 演員 */
     .actors_MB {

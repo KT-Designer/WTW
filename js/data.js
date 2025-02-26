@@ -356,6 +356,10 @@ $(document).ready(function () {
             DE: '德國',
             CA: '加拿大',
             AU: '澳大利亞',
+            TH: '泰國',
+            ES: '西班牙',
+            TW: '台灣',
+            TR: '土耳其',
             // 添加更多國家/地區代碼和名稱
         };
 
@@ -509,7 +513,10 @@ $(document).ready(function () {
             DE: '德國',
             CA: '加拿大',
             AU: '澳大利亞',
-            // 添加更多國家/地區代碼和名稱
+            TH: '泰國',
+            ES: '西班牙',
+            TW: '台灣',
+            TR: '土耳其',
         };
 
         let countryNames = [];
@@ -1028,72 +1035,3 @@ $(document).ready(function () {
 
 
 
-// $(document).ready(function () {
-//     var allResults = [];
-//     var totalPages = 1;
-//     var currentPage = 1;
-//     var displayedResultsCount = 0;
-
-//     function fetchPage(page) {
-//         var url = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey + '&language=zh-TW&sort_by=popularity.desc&with_genres=18&without_genres=16&page=' + page;
-
-//         $.ajax({
-//             url: url,
-//             type: 'GET',
-//             dataType: 'json',
-//             success: function (data) {
-//                 allResults = allResults.concat(data.results);
-//                 totalPages = data.total_pages;
-
-//                 if (page === 1) {
-//                     displayResults(allResults.slice(0, 20));
-//                     displayedResultsCount = 20;
-//                 } else {
-//                     var newResults = allResults.slice(displayedResultsCount);
-//                     displayResults(newResults);
-//                     displayedResultsCount = allResults.length;
-//                 }
-//             },
-//             error: function (error) {
-//                 console.error('Error:', error);
-//             }
-//         });
-//     }
-
-//     fetchPage(currentPage);
-
-//     function displayResults(results) {
-//         var resultsContainer = $('#drama');
-
-//         if (results.length === 0) {
-//             resultsContainer.append('<p>找不到符合的結果。</p>');
-//             return;
-//         }
-
-//         $.each(results, function (index, show) { // 修改這裡
-//             var title = show.name; // 修改這裡
-//             var posterPath = show.poster_path;
-//             var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : 'placeholder.jpg';
-//             var voteAverage = show.vote_average;
-//             var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
-
-//             var resultHtml = `
-//                 <li class="card">
-//                     <div class="container">
-//                         <a href="">
-//                             <img src="${posterUrl}" alt="${title} 海報">
-//                         </a>
-//                         <p class="score">${formattedVoteAverage}</p>
-//                     </div>
-//                     <p class="name">${title}</p>
-//                 </li>
-//             `;
-//             resultsContainer.append(resultHtml);
-//         });
-//     }
-
-//     $('.loading').click(function () {
-//         currentPage++;
-//         fetchPage(currentPage);
-//     });
-// });
