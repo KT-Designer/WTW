@@ -355,25 +355,49 @@ $(document).ready(function () {
         const genres = data.genres.map(genre => `<a href="">${genre.name}</a>`).join('');
         let releaseDate, country, duration, director;
 
+        // 國家/地區代碼對應表
+        const countryCodes = {
+            US: '美國',
+            CN: '中國',
+            KR: '韓國',
+            JP: '日本',
+            GB: '英國',
+            FR: '法國',
+            DE: '德國',
+            CA: '加拿大',
+            AU: '澳大利亞',
+            // 添加更多國家/地區代碼和名稱
+        };
+
+        let countryNames = [];
+
         if (mediaType === 'tv') {
             releaseDate = data.first_air_date || 'N/A';
-            country = data.origin_country ? data.origin_country.join(', ') : 'N/A';
-            duration = data.episode_run_time ? `${data.episode_run_time[0]} 分鐘` : 'N/A';
-            director = data.created_by && data.created_by.length > 0 ? data.created_by[0].name : 'N/A';
+            if (data.origin_country) {
+                countryNames = data.origin_country.map(code => countryCodes[code] || code);
+            } else {
+                countryNames = ['N/A'];
+            }
+            duration = data.episode_run_time ? `${data.episode_run_time[0]} 分鐘` : '未知'; // 修改這裡
+            director = data.created_by && data.created_by.length > 0 ? data.created_by[0].name : '未知';
         } else if (mediaType === 'movie') {
             releaseDate = data.release_date || 'N/A';
-            country = data.production_countries ? data.production_countries.map(c => c.name).join(', ') : 'N/A';
-            duration = data.runtime ? `${data.runtime} 分鐘` : 'N/A';
-            director = data.credits && data.credits.crew ? data.credits.crew.find(c => c.job === 'Director')?.name || 'N/A' : 'N/A';
+            if (data.production_countries) {
+                countryNames = data.production_countries.map(c => countryCodes[c.iso_3166_1] || c.iso_3166_1);
+            } else {
+                countryNames = ['N/A'];
+            }
+            duration = data.runtime ? `${data.runtime} 分鐘` : '未知'; // 修改這裡
+            director = data.credits && data.credits.crew ? data.credits.crew.find(c => c.job === 'Director')?.name || '未知' : '未知'; // 修改這裡
         }
 
         $('.card').attr('src', posterUrl);
         $('.style').html(genres);
         $('.name h2').text(data.name || data.title);
-        document.title = data.name || data.title; // 修改網頁標題
+        document.title = data.name || data.title;
         $('.name h1').text(data.vote_average.toFixed(1));
         $('.year .data').eq(0).text(releaseDate);
-        $('.year h3').eq(1).text(country);
+        $('.year h3').eq(1).text(countryNames.join(', '));
         $('.year h3').eq(2).text(duration);
         $('.dir .name').text(director);
         $('.story p').text(data.overview);
@@ -410,7 +434,6 @@ $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const showId = urlParams.get('id');
     const mediaType = urlParams.get('type');
-    const apiKey = '0549031a42dea247dc96898cbeffd1d3';
 
     if (showId && mediaType) {
         const url = mediaType === 'tv'
@@ -445,24 +468,48 @@ $(document).ready(function () {
         const genres = data.genres.map(genre => `<a href="">${genre.name}</a>`).join('');
         let releaseDate, country, duration, director;
 
+        // 國家/地區代碼對應表
+        const countryCodes = {
+            US: '美國',
+            CN: '中國',
+            KR: '韓國',
+            JP: '日本',
+            GB: '英國',
+            FR: '法國',
+            DE: '德國',
+            CA: '加拿大',
+            AU: '澳大利亞',
+            // 添加更多國家/地區代碼和名稱
+        };
+
+        let countryNames = [];
+
         if (mediaType === 'tv') {
             releaseDate = data.first_air_date || 'N/A';
-            country = data.origin_country ? data.origin_country.join(', ') : 'N/A';
-            duration = data.episode_run_time ? `${data.episode_run_time[0]} 分鐘` : 'N/A';
-            director = data.created_by && data.created_by.length > 0 ? data.created_by[0].name : 'N/A';
+            if (data.origin_country) {
+                countryNames = data.origin_country.map(code => countryCodes[code] || code);
+            } else {
+                countryNames = ['N/A'];
+            }
+            duration = data.episode_run_time ? `${data.episode_run_time[0]} 分鐘` : '未知';
+            director = data.created_by && data.created_by.length > 0 ? data.created_by[0].name : '未知';
         } else {
             releaseDate = data.release_date || 'N/A';
-            country = data.production_countries ? data.production_countries.map(c => c.name).join(', ') : 'N/A';
-            duration = data.runtime ? `${data.runtime} 分鐘` : 'N/A';
+            if (data.production_countries) {
+                countryNames = data.production_countries.map(c => countryCodes[c.iso_3166_1] || c.iso_3166_1);
+            } else {
+                countryNames = ['N/A'];
+            }
+            duration = data.runtime ? `${data.runtime} 分鐘` : '未知';
             director = data.credits && data.credits.crew ? data.credits.crew.find(c => c.job === 'Director')?.name || '未知' : '未知';
         }
 
         $('.style_MB').html(genres);
         $('.title_MB').text(data.name || data.title);
-        document.title = data.name || data.title; // 修改網頁標題
+        document.title = data.name || data.title;
         $('.rating_MB').text(data.vote_average.toFixed(1));
         $('.data_MB').eq(0).text(releaseDate);
-        $('.year_MB h3').eq(1).text(country);
+        $('.year_MB h3').eq(1).text(countryNames.join(', '));
         $('.year_MB h3').eq(2).text(duration);
         $('.dir_MB .name').text(director);
         $('.story_MB p').text(data.overview);
@@ -471,7 +518,7 @@ $(document).ready(function () {
             ? `https://api.themoviedb.org/3/tv/${showId}/credits?api_key=${apiKey}&language=zh-TW`
             : `https://api.themoviedb.org/3/movie/${showId}/credits?api_key=${apiKey}&language=zh-TW`;
 
-        var swiperactors = null; // 宣告 swiperactors 變數
+        var swiperactors = null;
 
         $.ajax({
             url: creditsUrl,
@@ -486,22 +533,20 @@ $(document).ready(function () {
                             ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
                             : '../images/actor/placeholder.jpg';
                         return `
-                        <div class="swiper-slide"> <div class="actor_MB">
-                        <a href=""><img src="${profilePath}" alt="${actor.name}"></a>
-                        <p class="name">${actor.name}</p>
-                    </div>
-                </div>                               
-
+                            <div class="swiper-slide"> <div class="actor_MB">
+                                <a href=""><img src="${profilePath}" alt="${actor.name}"></a>
+                                <p class="name">${actor.name}</p>
+                            </div>
+                        </div>
                         `;
                     }).join('');
                     console.log('actors:', actors);
-                    $('#actors .swiper-wrapper').html(actors).show(); // 確保選擇器正確
+                    $('#actors .swiper-wrapper').html(actors).show();
 
-                    // 初始化 Swiper（只執行一次）
                     if (swiperactors === null) {
                         swiperactors = new Swiper("#actors", {
-                            slidesPerView: 4.5, // 根據需要調整
-                            spaceBetween: 10, // 根據需要調整
+                            slidesPerView: 4.5,
+                            spaceBetween: 10,
                         });
                     }
 
@@ -525,7 +570,6 @@ $(document).ready(function () {
         }
     }
 });
-
 
 
 
