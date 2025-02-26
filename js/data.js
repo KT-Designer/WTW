@@ -499,7 +499,7 @@ $(document).ready(function () {
                     if (swiperactors === null) {
                         swiperactors = new Swiper("#actors", {
                             slidesPerView: 4.5, // 根據需要調整
-                            spaceBetween: 30, // 根據需要調整
+                            spaceBetween: 10, // 根據需要調整
                         });
                     }
 
