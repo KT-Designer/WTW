@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/Reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="../css/jquery-ui.css">
+    <title>電影</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo.png" alt="">
+            </a>
+            <div class="search">
+                <form action="#" method="GET" id="searchForm">
+                    <label class="searchLabelWrap">
+                        <span class="visually-hidden">Search</span>
+                        <img src="../images/search.png" alt="">
+                        <input id="searchInput" type="search" placeholder="搜尋劇名 / 演員" class="searchInput" name="s"
+                            autocomplete="off">
+                    </label>
+                </form>
+            </div>
+        </div>
+        <nav>
+            <ul class="list">
+                <li class="active">
+                    <a href="./movie.html">電影</a>
+                </li>
+                <li>
+                    <a href="./drama.html">戲劇</a>
+                </li>
+                <li>
+                    <a href="./theme.html">主題館</a>
+                </li>
+                <li>
+                    <a href="./collect.html">我的片單</a>
+                </li>
+                <li class="vip">
+                    <a href="">
+                        <img src="../images/icon_vip.png" alt="">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Header_MB -->
+    <nav class="menu_MB">
+        <ul>
+            <li>
+                <a href="./movie.html">
+                    <svg class="active" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9.84595 4.35839C8.20991 4.58015 6.71948 5.30808 5.51671 6.46928C4.26533 7.67889 3.52714 9.12792 3.23949 10.9303C3.15975 11.419 3.15975 12.5768 3.23949 13.0655C3.5131 14.7847 4.19603 16.1747 5.33634 17.3497C6.83721 18.8851 8.74703 19.6928 10.8927 19.6928C12.0434 19.6928 13.0937 19.4572 14.1993 18.9546C15.3362 18.4348 16.3899 18.206 17.4367 18.2476C18.2962 18.2857 18.9271 18.4555 19.6827 18.8437C20.1646 19.0934 20.2685 19.1141 20.5077 18.9962C20.8612 18.8263 20.9271 18.348 20.6394 18.0776C20.487 17.932 19.7729 17.5819 19.3119 17.4224C18.6846 17.2075 18.175 17.1244 17.3778 17.0966L16.6776 17.0759L16.8855 16.816C17.5684 15.9599 18.123 14.8194 18.3725 13.7623C18.9721 11.2042 18.2062 8.46605 16.3759 6.61508C15.1317 5.35326 13.5929 4.58375 11.8424 4.35496C11.3398 4.28908 10.3449 4.2925 9.84595 4.35839ZM11.3189 6.25093C11.9117 6.39997 12.4247 6.9857 12.5251 7.62705C12.6498 8.44858 12.1023 9.26994 11.2842 9.48486C10.3413 9.7275 9.3882 9.09317 9.22188 8.10874C9.09354 7.35309 9.56857 6.56288 10.3068 6.28909C10.6084 6.17821 10.9828 6.16435 11.3189 6.25093ZM7.43679 9.03431C7.73146 9.11405 7.96366 9.24924 8.20289 9.48486C9.021 10.2891 8.79563 11.6444 7.76278 12.1503C6.56 12.7397 5.19432 11.7482 5.37468 10.4241C5.50969 9.45372 6.49412 8.79167 7.43679 9.03431ZM15.1526 9.04475C16.175 9.32898 16.6812 10.4693 16.2063 11.4121C16.0955 11.6305 15.7801 11.9702 15.5825 12.0881C14.7366 12.5836 13.6552 12.2682 13.2289 11.4017C12.8997 10.7397 13.021 9.99445 13.534 9.48486C13.9846 9.03773 14.5633 8.88185 15.1526 9.04475ZM11.118 11.3774C11.3398 11.4606 11.5443 11.7552 11.5443 11.9979C11.5443 12.1539 11.4402 12.3723 11.3155 12.4902C10.962 12.8194 10.3519 12.6392 10.2236 12.1644C10.1127 11.7518 10.4315 11.3394 10.8579 11.3394C10.9481 11.3392 11.0626 11.3567 11.118 11.3774ZM9.03828 13.5958C9.46452 13.7414 9.80779 14.0533 10.0089 14.4796C10.1163 14.7049 10.137 14.7847 10.1509 15.0689C10.1718 15.4744 10.1023 15.7587 9.91525 16.0463C9.32592 16.9544 8.11972 17.1139 7.35381 16.3826C6.35552 15.4329 6.85467 13.7794 8.21693 13.523C8.43167 13.4815 8.80607 13.5126 9.03828 13.5958ZM13.5409 13.5265C14.3277 13.6687 14.9065 14.3619 14.9065 15.1625C14.9065 15.6651 14.7505 16.0325 14.3901 16.3791C13.7385 16.9962 12.7472 16.9996 12.1025 16.3826C11.4404 15.7517 11.3988 14.7327 12.0089 14.0533C12.4005 13.6201 12.9724 13.4224 13.5409 13.5265Z"
+                            fill="#686B72" />
+                    </svg>
+                    <p class="active">電影</p>
+                </a>
+            </li>
+            <li>
+                <a href="./drama.html">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M14.5621 6.99793H18.1379C19.7195 6.99793 21.0019 8.28035 21.0019 9.86192V16.961C21.0019 18.5426 19.7195 19.825 18.1379 19.825H5.86205C4.28048 19.825 2.99805 18.5426 2.99805 16.9638V9.86192C2.99805 8.28035 4.28048 6.99793 5.86205 6.99516H9.43512L7.41592 5.41082C7.11678 5.17538 7.06415 4.74052 7.29959 4.43861C7.53502 4.13947 7.96989 4.08684 8.2718 4.32227L11.6815 6.99793H12.3157L15.7254 4.32504C16.0273 4.08684 16.4622 4.13947 16.6976 4.44138C16.9358 4.74329 16.8832 5.17815 16.5813 5.41358L14.5621 6.99793ZM18.1379 18.4401C18.955 18.4401 19.617 17.7753 19.617 16.961V9.86192C19.617 9.04483 18.9522 8.38284 18.1379 8.38284H5.86205C5.04495 8.38284 4.38296 9.0476 4.38296 9.86192V16.961C4.38296 17.7781 5.04495 18.4401 5.86205 18.4401H18.1379ZM12.4514 11.8509L13.7976 12.6264C14.4014 12.9754 14.4014 13.8479 13.7976 14.1997L12.4514 14.9752L11.1053 15.7508C10.5015 16.0998 9.74809 15.6649 9.74809 14.9669V13.413V11.8592C9.74809 11.1612 10.5015 10.7263 11.1053 11.0753L12.4514 11.8509Z"
+                            fill="#686B72" />
+                    </svg>
+                    <p>影集</p>
+                </a>
+
+            </li>
+            <li>
+                <a href="./theme.html">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M8.53943 5.80254L8.91557 5.80303C8.97987 5.80312 9.04489 5.80321 9.1105 5.80331L9.51025 5.80396C10.3874 5.80546 11.3216 5.80751 12.0337 5.80899L12.3455 5.80963C12.3945 5.80973 12.442 5.80982 12.4877 5.80991C14.2871 5.68355 15.9113 7.01909 16.0561 8.81126C16.0574 8.82964 16.0586 8.93395 16.0596 9.1237L17.7196 7.76418C18.2027 7.36832 18.8528 7.29075 19.4166 7.55706C19.9804 7.82496 20.3307 8.37837 20.3299 9.00215L20.3203 14.8793C20.3195 15.5031 19.9684 16.0565 19.4054 16.322C19.1847 16.4267 18.9512 16.4771 18.7193 16.4771C18.3586 16.4771 18.0027 16.3532 17.7092 16.1125L16.0633 14.7467C16.0633 14.7699 16.0633 14.7931 16.0633 14.8164C16.0968 15.6609 15.7962 16.4742 15.2156 17.106C14.6054 17.7705 13.7641 18.1568 12.8476 18.1944C12.832 18.1955 12.7444 18.1962 12.6007 18.1967L12.2848 18.1973C12.1615 18.1973 12.0215 18.1974 11.8681 18.1973L11.1916 18.1966C11.1307 18.1966 11.0687 18.1965 11.006 18.1964L10.6202 18.1958C9.701 18.1942 8.66561 18.1918 7.86288 18.1901L7.53412 18.1894C7.42996 18.1891 7.33157 18.1889 7.23995 18.1888C7.15518 18.1952 7.07041 18.1984 6.98564 18.1984C5.29504 18.1992 3.82035 16.9036 3.6812 15.2042L3.68108 15.2025L3.68033 15.1866C3.68028 15.1849 3.68022 15.183 3.68016 15.1809L3.67961 15.1557C3.67955 15.1521 3.67948 15.1483 3.67942 15.1441L3.67881 15.0976C3.67874 15.0913 3.67867 15.0846 3.6786 15.0776L3.67796 15.002C3.67789 14.9922 3.67782 14.9819 3.67775 14.971L3.67731 14.8996C3.67724 14.8866 3.67717 14.873 3.6771 14.8588L3.67645 14.714C3.67637 14.696 3.6763 14.6773 3.67623 14.6578L3.67561 14.4631C3.67554 14.4391 3.67547 14.4144 3.67541 14.3889L3.67483 14.1365C3.67476 14.1058 3.6747 14.0743 3.67464 14.0418L3.67397 13.6065C3.67392 13.5662 3.67387 13.525 3.67382 13.4826L3.6732 12.7655C3.67317 12.712 3.67314 12.6573 3.67311 12.6014L3.67309 9.46818C3.67313 9.37316 3.67317 9.27655 3.67321 9.17833C3.63482 8.35382 3.93391 7.53491 4.51771 6.89753C5.1271 6.23216 5.9676 5.8443 6.88488 5.80511C6.89723 5.80422 6.95568 5.80355 7.05209 5.80306L7.22415 5.80247C7.25724 5.80239 7.29244 5.80232 7.32963 5.80227L8.35975 5.80235C8.41858 5.80241 8.47852 5.80247 8.53943 5.80254ZM12.5309 7.00789C11.5212 7.00642 10.2866 7.00466 9.23307 7.00351L8.67879 7.00295C8.59021 7.00287 8.50375 7.00279 8.41969 7.00272L7.02892 7.00277C6.97658 7.003 6.94272 7.00336 6.92966 7.00389C6.33947 7.02868 5.79486 7.27899 5.4022 7.70764C5.03593 8.1083 4.84719 8.62013 4.87199 9.15114L4.87265 12.2404C4.87268 12.3086 4.87272 12.3764 4.87276 12.4435L4.87349 13.3984C4.87355 13.4578 4.87361 13.5163 4.87367 13.5736L4.87409 13.904C4.87416 13.9566 4.87424 14.008 4.87431 14.0581L4.87509 14.4699C4.87594 14.8407 4.87702 15.0811 4.87838 15.1274C4.96955 16.2351 6.00759 17.082 7.19597 16.9908C7.32164 16.991 7.45077 16.9912 7.58258 16.9914L7.98526 16.992C8.32624 16.9926 8.67912 16.9932 9.03175 16.9938L9.45402 16.9945C9.66431 16.9948 9.87277 16.9952 10.0768 16.9955L10.4781 16.9961C10.5437 16.9962 10.6086 16.9963 10.6728 16.9964L11.0475 16.9969C11.1081 16.9969 11.1678 16.997 11.2263 16.9971L12.6382 16.997C12.7305 16.9967 12.7885 16.9962 12.806 16.9956C13.3938 16.9716 13.9392 16.7221 14.3319 16.2942C14.6989 15.8952 14.8877 15.3834 14.8645 14.8547L14.8638 14.8415L14.8636 10.9739C14.8636 10.9111 14.8636 10.8491 14.8635 10.788L14.8629 10.1036C14.8629 10.0511 14.8628 9.99985 14.8627 9.94995L14.862 9.53938C14.8618 9.41617 14.8615 9.30742 14.8612 9.21548L14.8605 9.05475C14.86 8.9635 14.8595 8.90498 14.8589 8.88483C14.7685 7.77162 13.7257 6.91432 12.5309 7.00789ZM18.4794 8.69266L16.063 10.6642C16.063 10.7625 16.0631 10.8646 16.0632 10.9706L16.0637 12.976L18.4698 15.1856C18.6465 15.3295 18.824 15.2704 18.8928 15.2368C18.9616 15.2048 19.1207 15.1048 19.1207 14.8777L19.1303 9.00055C19.1311 8.77343 18.9712 8.67347 18.9024 8.64068C18.8344 8.60869 18.6545 8.54871 18.4794 8.69266Z"
+                            fill="#686B72" />
+                    </svg>
+                    <p>主題館</p>
+                </a>
+            </li>
+            <li>
+                <a href="./collect.html">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M6.54477 12.1703C5.90808 11.5336 5.55039 10.67 5.55039 9.7696C5.55039 8.86918 5.90808 8.00565 6.54477 7.36895C7.18146 6.73226 8.045 6.37457 8.94542 6.37457C9.84584 6.37457 10.7094 6.73226 11.3461 7.36895L12.0002 8.02312L12.6544 7.36895C12.6548 7.36858 12.6551 7.3682 12.6555 7.36783C12.9705 7.053 13.3443 6.80324 13.7557 6.63277C14.1677 6.46209 14.6092 6.37424 15.055 6.37424C15.5009 6.37424 15.9424 6.46209 16.3543 6.63277C16.7662 6.80344 17.1405 7.0536 17.4557 7.36895C17.771 7.68416 18.0212 8.05841 18.1919 8.47032C18.3625 8.88223 18.4504 9.32373 18.4504 9.7696C18.4504 10.2155 18.3625 10.657 18.1919 11.0689C18.0212 11.4808 17.771 11.855 17.4557 12.1703L12.0002 17.6257L6.54477 12.1703ZM18.4454 13.1604L12.9902 18.6157C12.7276 18.8782 12.3715 19.0257 12.0002 19.0257C11.6289 19.0257 11.2728 18.8782 11.0103 18.6157L5.55482 13.1602C4.65558 12.261 4.15039 11.0413 4.15039 9.7696C4.15039 8.49788 4.65558 7.27825 5.55482 6.37901C6.45406 5.47976 7.6737 4.97457 8.94542 4.97457C10.0651 4.97457 11.1444 5.36618 12.0002 6.07354C12.3673 5.77003 12.7782 5.52238 13.2198 5.3394C13.8017 5.09832 14.4253 4.97424 15.055 4.97424C15.6848 4.97424 16.3084 5.09832 16.8902 5.3394C17.4718 5.58039 18.0003 5.93357 18.4454 6.37877C18.8908 6.82399 19.2442 7.3526 19.4852 7.93441C19.7263 8.51622 19.8504 9.13982 19.8504 9.7696C19.8504 10.3994 19.7263 11.023 19.4852 11.6048C19.2442 12.1865 18.8907 12.7153 18.4454 13.1604C18.4453 13.1605 18.4455 13.1604 18.4454 13.1604Z"
+                            fill="#686B72" />
+                    </svg>
+                    <p>我的片單</p>
+                </a>
+            </li>
+            <li class="vip">
+                <a href="#">
+                    <img src="../images/icon_vip.png" alt="">
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+
+
+    <!-- 篩選 -->
+    <div class="filter">
+        <div class="class">
+            <div class="container">
+                <div class="titile_icon"></div>
+                <h2>類型</h2>
+            </div>
+            <div class="options">
+                <p class="class-item active">全部</p>
+                <p class="class-item">冒險</p>
+                <p class="class-item">劇情</p>
+                <p class="class-item">動作</p>
+                <p class="class-item">動畫</p>
+                <p class="class-item">歷史</p>
+                <p class="class-item">喜劇</p>
+                <p class="class-item">奇幻</p>
+                <p class="class-item">家庭</p>
+                <p class="class-item">恐怖</p>
+                <p class="class-item">懸疑</p>
+                <p class="class-item">驚悚</p>
+                <p class="class-item">戰爭</p>
+                <p class="class-item">愛情</p>
+                <p class="class-item">犯罪</p>
+                <p class="class-item">電視電影</p>
+                <p class="class-item">科幻</p>
+                <p class="class-item">記錄</p>
+                <p class="class-item">西部</p>
+                <p class="class-item">音樂</p>
+
+            </div>
+        </div>
+
+        <div class="year">
+            <div class="container">
+                <div class="titile_icon"></div>
+                <h2>年份</h2>
+            </div>
+            <div class="options">
+                <p class="year-item active">全部</p>
+                <p class="year-item">2025</p>
+                <p class="year-item">2024</p>
+                <p class="year-item">2023</p>
+                <p class="year-item">2022</p>
+                <p class="year-item">2021</p>
+                <p class="year-item">2020</p>
+                <p class="year-item">2019</p>
+                <p class="year-item">2018</p>
+                <p class="year-item">2017</p>
+                <p class="year-item">2016</p>
+                <p class="year-item">2015</p>
+                <p class="year-item">2014</p>
+                <p class="year-item">2013</p>
+                <p class="year-item">2012</p>
+                <p class="year-item">2011</p>
+                <p class="year-item">2010</p>
+            </div>
+        </div>
+
+
+        <div class="score">
+            <div class="score-left">
+                <div class="container">
+                    <div class="titile_icon"></div>
+                    <h2>評分</h2>
+                </div>
+                <div class="range">
+                    <p>0</p>
+                    <div id="range_movie" class="cntr"></div>
+                    <p>10</p>
+                </div>
+            </div>
+            <!-- <div class="score-right">
+                <P class="search">搜尋</P>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- 顯示條件 -->
+    <div class="sort">
+        <p class="sort-item active">人氣</p>
+        <p class="sort-item">評分</p>
+        <p class="sort-item">上映日</p>
+        <p class="sort-item">片名</p>
+    </div>
+
+
+
+
+
+    <!-- 影片區 -->
+    <div class="film">
+        <ul class="list" id="movie">
+            <!-- <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="" alt="">
+                    </a>
+                    <p class="score"></p>
+                </div>
+                <p class="name"></p>
+            </li> -->
+        </ul>
+        <div class="loading">載入更多</div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div class="film">
+        <ul class="list">
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie1.jpg" alt="">
+                    </a>
+                    <p class="score">6.9</p>
+                </div>
+                <p class="name">黑祭司2：闇黑修女</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie2.jpg" alt="">
+                    </a>
+                    <p class="score">6.5</p>
+                </div>
+                <p class="name">烈火救援</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie3.jpg" alt="">
+                    </a>
+                    <p class="score">7.1</p>
+                </div>
+                <p class="name">完美伴侶</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie4.jpg" alt="">
+                    </a>
+                    <p class="score">6.7</p>
+                </div>
+                <p class="name">鑽石大劫案：極盜戰</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="./info.html">
+                        <img src="../images/hotmovie/hotmovie5.jpg" alt="">
+                    </a>
+                    <p class="score">7.1</p>
+                </div>
+                <p class="name">懼裂</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie6.jpg" alt="">
+                    </a>
+                    <p class="score">8.8</p>
+                </div>
+                <p class="name">劇場版「進擊的巨人」完結篇THE LAST ATTACK</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie7.jpg" alt="">
+                    </a>
+                    <p class="score">7.2</p>
+                </div>
+                <p class="name">柏靈頓：熊熊去秘魯</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie8.jpg" alt="">
+                    </a>
+                    <p class="score">7.3</p>
+                </div>
+                <p class="name">巴布狄倫：搖滾詩人</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie9.jpg" alt="">
+                    </a>
+                    <p class="score">8.2</p>
+                </div>
+                <p class="name">哈爾濱</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie10.jpg" alt="">
+                    </a>
+                    <p class="score">6.3</p>
+                </div>
+                <p class="name">天使營救</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie11.jpg" alt="">
+                    </a>
+                    <p class="score">6.4</p>
+                </div>
+                <p class="name">狼人</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie12.jpg" alt="">
+                    </a>
+                    <p class="score">8.4</p>
+                </div>
+                <p class="name">荒野機器人</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie13.jpg" alt="">
+                    </a>
+                    <p class="score">7.6</p>
+                </div>
+                <p class="name">更好的人</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie14.jpg" alt="">
+                    </a>
+                    <p class="score">7.5</p>
+                </div>
+                <p class="name">誤判</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie15.jpg" alt="">
+                    </a>
+                    <p class="score">4.3</p>
+                </div>
+                <p class="name">笑傲江湖</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie16.jpg" alt="">
+                    </a>
+                    <p class="score">7.6</p>
+                </div>
+                <p class="name">哥吉拉-1.0</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie17.jpg" alt="">
+                    </a>
+                    <p class="score">6.2</p>
+                </div>
+                <p class="name">美國隊長：無畏新世界</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie18.jpg" alt="">
+                    </a>
+                    <p class="score">7.0</p>
+                </div>
+                <p class="name">粗獷派建築師</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie19.jpg" alt="">
+                    </a>
+                    <p class="score">6.9</p>
+                </div>
+                <p class="name">不可能的任務：最終清算</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie20.jpg" alt="">
+                    </a>
+                    <p class="score">8.0</p>
+                </div>
+                <p class="name">馴龍高手</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie21.jpg" alt="">
+                    </a>
+                    <p class="score">6.8</p>
+                </div>
+                <p class="name">地球特派員</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie22.jpg" alt="">
+                    </a>
+                    <p class="score">7.2</p>
+                </div>
+                <p class="name">28年毀滅倒數</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie23.jpg" alt="">
+                    </a>
+                    <p class="score">7.6</p>
+                </div>
+                <p class="name">F1</p>
+            </li>
+
+            <li class="card">
+                <div class="container">
+                    <a href="">
+                        <img src="../images/hotmovie/hotmovie24.jpg" alt="">
+                    </a>
+                    <p class="score">6.9</p>
+                </div>
+                <p class="name">魔法壞女巫</p>
+            </li>
+        </ul>
+        <div class="loading">載入更多</div>
+    </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- jQuery -->
+    <script src="../js/jquery-3.7.1.js"></script>
+    <!-- jQuery UI -->
+    <script src="../js/jquery-ui.min.js"></script>
+    <!-- jQuery UI touch -->
+    <script src="../js/jquery.ui.touch-punch.min.js"></script>
+    <!-- 全站JS -->
+    <script src="../js/script.js"></script>
+    <script src="../js/data.js"></script>
+    <!-- 輪播套件 -->
+    <script src="../js/swiper-bundle.min.js"></script>
+
+</body>
+
+</html>

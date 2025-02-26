@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/Reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="../css/jquery-ui.css">
+    <title>電影</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo.png" alt="">
+            </a>
+            <div class="search">
+                <form action="#" method="GET" id="searchForm">
+                    <label class="searchLabelWrap">
+                        <span class="visually-hidden">Search</span>
+                        <img src="../images/search.png" alt="">
+                        <input id="searchInput" type="search" placeholder="搜尋劇名 / 演員" class="searchInput" name="s"
+                            autocomplete="off">
+                    </label>
+                </form>
+            </div>
+        </div>
+        <nav>
+            <ul class="list">
+                <li>
+                    <a href="./movie.html">電影</a>
+                </li>
+                <li>
+                    <a href="./drama.html">戲劇</a>
+                </li>
+                <li>
+                    <a href="./theme.html">主題館</a>
+                </li>
+                <li>
+                    <a href="../html/collect.html">我的片單</a>
+                </li>
+                <li class="vip">
+                    <a href="">
+                        <img src="../images/icon_vip.png" alt="">
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+
+
+    <!-- 影片區 -->
+    <div class="film collect">
+        <ul class="list" id="searchResults">
+        </ul>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- jQuery -->
+    <script src="../js/jquery-3.7.1.js"></script>
+    <!-- jQuery UI -->
+    <script src="../js/jquery-ui.min.js"></script>
+    <!-- jQuery UI touch -->
+    <script src="./js/jquery.ui.touch-punch.min.js"></script>
+    <!-- 全站JS -->
+    <script src="../js/script.js"></script>
+    <script src="../js/data.js"></script>
+    <!-- 輪播套件 -->
+    <script src="../js/swiper-bundle.min.js"></script>
+
+    <!-- 搜尋功能 -->
+    <script>
+        $(document).ready(function () {
+            const results = JSON.parse(localStorage.getItem("searchResults"));
+            console.log("localStorage 資料:", results);
+            if (results && results.length > 0) {
+                let html = "";
+                results.forEach((item) => {
+                    const posterUrl = item.poster_path
+                        ? "https://image.tmdb.org/t/p/w500" + item.poster_path
+                        : item.profile_path ? "https://image.tmdb.org/t/p/w500" + item.profile_path : "找不到海報";
+                    const voteAverage = item.vote_average ? item.vote_average.toFixed(1) : "N/A";
+                    const name = item.title ? item.title : item.name;
+                    html += `
+                <li class="card">
+                    <div class="container">
+                        <img src="${posterUrl}" alt="${name}">
+                        <p class="score">${voteAverage}</p>
+                    </div>
+                    <p class="name">${name}</p>
+                </li>
+            `;
+                });
+                $("#searchResults").html(html);
+                localStorage.removeItem("searchResults");
+            } else {
+                $("#searchResults").html('<p class="notfound">搜不到結果...ಥ_ಥ</p>');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
