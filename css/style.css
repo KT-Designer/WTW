@@ -1022,6 +1022,9 @@ footer p {
     font-family: 'Noto Sans TC';
     border-radius: 13px;
     cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
 
@@ -1262,6 +1265,18 @@ footer p {
 
     /* ========================================================== */
     /* 詳情頁_info.html */
+
+
+
+    .information .add {
+
+        top: 87%;
+        right: 20px;
+    }
+
+
+
+
     /* 評論 */
     .comment {
         border-radius: 0px;
