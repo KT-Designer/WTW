@@ -1006,6 +1006,7 @@ footer p {
     display: inline-block;
     margin-right: 6px;
     transition: 0.6s;
+    margin-top: 6px;
 }
 
 .information .style a:hover {
@@ -1034,9 +1035,14 @@ footer p {
 }
 
 .information .name h2 {
+    max-width: 420px;
     font-size: 38px;
     font-family: 'Noto Sans TC';
+    font-weight: 500;
+    line-height: 54px;
     margin-right: 18px;
+    margin-bottom: 16px;
+
 }
 
 
@@ -1571,9 +1577,11 @@ footer p {
     }
 
     .cover_MB .info h2 {
+        max-width: 300px;
         font-family: 'Noto Sans TC';
         font-size: 30px;
         font-weight: 600;
+        line-height: 45px;
         color: #ffffff;
     }
 
@@ -1708,18 +1716,6 @@ footer p {
     .actors_MB .mySwiper {
         padding: 16px;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     .actors_MB .actor_MB img {
