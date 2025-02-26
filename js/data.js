@@ -370,6 +370,7 @@ $(document).ready(function () {
         $('.card').attr('src', posterUrl);
         $('.style').html(genres);
         $('.name h2').text(data.name || data.title);
+        document.title = data.name || data.title; // 修改網頁標題
         $('.name h1').text(data.vote_average.toFixed(1));
         $('.year .data').eq(0).text(releaseDate);
         $('.year h3').eq(1).text(country);
@@ -458,6 +459,7 @@ $(document).ready(function () {
 
         $('.style_MB').html(genres);
         $('.title_MB').text(data.name || data.title);
+        document.title = data.name || data.title; // 修改網頁標題
         $('.rating_MB').text(data.vote_average.toFixed(1));
         $('.data_MB').eq(0).text(releaseDate);
         $('.year_MB h3').eq(1).text(country);
