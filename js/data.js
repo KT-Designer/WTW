@@ -438,17 +438,53 @@ $(document).ready(function () {
             }
         });
 
-        if (data.homepage) {
-            $('.streaming a').attr('href', data.homepage);
+        const providersUrl = mediaType === 'tv'
+            ? `https://api.themoviedb.org/3/tv/${showId}/watch/providers?api_key=${apiKey}`
+            : `https://api.themoviedb.org/3/movie/${showId}/watch/providers?api_key=${apiKey}`;
+
+        $.ajax({
+            url: providersUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function (providersData) {
+                console.log('Providers Data:', providersData);
+                displayProviders(providersData.results.TW, data.homepage); // 假設您要顯示台灣的串流平台
+            },
+            error: function (error) {
+                console.error('Error fetching providers data:', error);
+                $('.streaming_pcbox').append('<p>無相關串流平台</p>');
+            }
+        });
+
+    }
+
+    function displayProviders(providers, homepage) {
+        if (providers && providers.flatrate) {
+            const providersHtml = providers.flatrate.map(provider => `
+                <div class="streaming_icon">
+                    <a target="_blank" href="${homepage || provider.link}">
+                        <img src="https://image.tmdb.org/t/p/w500${provider.logo_path}" alt="${provider.provider_name}">
+                    </a>
+                </div>
+            `).join('');
+            $('.streaming_pcbox').append(providersHtml);
+        } else {
+            $('.streaming_pcbox').append('<p>無相關串流平台</p>');
         }
     }
 });
+
+
+
+
+
 
 // MB版
 $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const showId = urlParams.get('id');
     const mediaType = urlParams.get('type');
+
 
     if (showId && mediaType) {
         const url = mediaType === 'tv'
@@ -597,16 +633,146 @@ $(document).ready(function () {
             }
         });
 
-        if (data.homepage) {
-            const $streamingLink = $('.streaming a');
-            if ($streamingLink.length) {
-                $streamingLink.attr('href', data.homepage);
-            } else {
-                console.error('找不到 .streaming a 元素');
+        const providersUrl = mediaType === 'tv'
+            ? `https://api.themoviedb.org/3/tv/${showId}/watch/providers?api_key=${apiKey}`
+            : `https://api.themoviedb.org/3/movie/${showId}/watch/providers?api_key=${apiKey}`;
+
+        $.ajax({
+            url: providersUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function (providersData) {
+                console.log('Providers Data:', providersData);
+                if (providersData.results && providersData.results.TW) {
+                    displayProviders(providersData.results.TW, data.homepage); // 假設您要顯示台灣的串流平台
+                } else {
+                    $('.streaming_mbbox').append('<p>無相關串流平台</p>');
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching providers data:', error);
+                $('.streaming_mbbox').append('<p>無法取得串流平台資訊</p>');
             }
+        });
+
+    }
+
+    function displayProviders(providers, homepage) {
+        if (providers && providers.flatrate) {
+            const providersHtml = providers.flatrate.map(provider => `
+            <div class="streaming_icon_MB">
+                    <a target="_blank" href="${homepage || provider.link}">
+                        <img src="https://image.tmdb.org/t/p/w500${provider.logo_path}" alt="${provider.provider_name}">
+                    </a>
+                </div>
+        
+
+
+
+                
+            `).join('');
+            $('.streaming_mbbox').append(providersHtml);
+        } else {
+            $('.streaming_mbbox').append('<p>無相關串流平台</p>');
         }
     }
 });
+
+
+// 相關影片
+$(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const showId = urlParams.get('id');
+    const mediaType = urlParams.get('type');
+
+
+    if (showId && mediaType) {
+        const url = mediaType === 'tv'
+            ? `https://api.themoviedb.org/3/tv/${showId}?api_key=${apiKey}&language=zh-TW`
+            : `https://api.themoviedb.org/3/movie/${showId}?api_key=${apiKey}&language=zh-TW`;
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                updateInfo(data, mediaType);
+            },
+            error: function (error) {
+                console.error('Error fetching movie/TV info:', error);
+                $('.info_MB').html('<p>無法取得影片資訊</p>');
+            }
+        });
+    } else {
+        $('.info_MB').html('<p>未提供影片 ID 或媒體類型</p>');
+    }
+
+    function updateInfo(data, mediaType) {
+        console.log('showId:', showId, 'mediaType:', mediaType, 'data:', data);
+
+        const backdropUrl = data.backdrop_path
+            ? `https://image.tmdb.org/t/p/original${data.backdrop_path}`
+            : '../images/placeholder-backdrop.jpg';
+
+        $('.cover_MB img').attr('src', backdropUrl);
+
+        // ... (其他基本資訊更新程式碼)
+
+        // 獲取類似影片/電視節目
+        getSimilarMedia(showId, mediaType);
+    }
+
+    function getSimilarMedia(showId, mediaType) {
+        const timestamp = Date.now(); // 新增時間戳記
+        const similarUrl = mediaType === 'tv'
+            ? `https://api.themoviedb.org/3/tv/${showId}/similar?api_key=${apiKey}&language=zh-TW&timestamp=${timestamp}`
+            : `https://api.themoviedb.org/3/movie/${showId}/similar?api_key=${apiKey}&language=zh-TW&timestamp=${timestamp}`;
+
+        $.ajax({
+            url: similarUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function (similarData) {
+                console.log('Similar Media Data:', similarData);
+                displaySimilarMedia(similarData.results);
+            },
+            error: function (error) {
+                console.error('Error fetching similar media data:', error);
+                $('#otherfilm .swiper-wrapper').html('<p>無法取得相關影片資訊</p>');
+            }
+        });
+    }
+
+    function displaySimilarMedia(similarResults) {
+        let similarHtml = '';
+        if (similarResults && similarResults.length > 0) {
+            similarResults.forEach(media => {
+                const posterUrl = media.poster_path
+                    ? `https://image.tmdb.org/t/p/w500${media.poster_path}`
+                    : '../images/placeholder-poster.jpg';
+                similarHtml += `
+                    <div class="swiper-slide">
+                        <div class="card">
+                            <div class="picbox">
+                                <a href="?id=${media.id}&type=${mediaType}">
+                                    <img class="card_img" src="${posterUrl}" alt="${media.title || media.name}">
+                                </a>
+                                <p class="score">${media.vote_average.toFixed(1)}</p>
+                            </div>
+                            <p class="name">${media.title || media.name}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#otherfilm .swiper-wrapper').html(similarHtml);
+            $('#otherfilm h1').text(mediaType === 'tv' ? '相關影片' : '相關影片'); // 動態標題
+        } else {
+            $('#otherfilm .swiper-wrapper').html('<p style="color: #C10171; font-family: \'Noto Sans TC\';">無相關影片</p>');
+        }
+    }
+});
+
+
 
 
 
