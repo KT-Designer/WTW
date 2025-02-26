@@ -83,8 +83,6 @@ $(document).ready(function () {
 
 // 熱門韓劇(8個月內)
 $(document).ready(function () {
-    const apiKey = '0549031a42dea247dc96898cbeffd1d3'; // 請替換成您的 API 金鑰
-
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
     var currentMonth = currentDate.getMonth(); // 0-11
@@ -150,8 +148,6 @@ $(document).ready(function () {
 
 // 熱門陸劇/台劇(今年)
 $(document).ready(function () {
-    const apiKey = '0549031a42dea247dc96898cbeffd1d3'; // 請替換成您的 API 金鑰
-
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
     var startDate = currentYear + "-01-01";
@@ -197,8 +193,6 @@ $(document).ready(function () {
 
 // 熱門美劇(半年內)
 $(document).ready(function () {
-    const apiKey = '0549031a42dea247dc96898cbeffd1d3'; // 請替換成您的 API 金鑰
-
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
     var currentMonth = currentDate.getMonth(); // 0-11
@@ -258,8 +252,6 @@ $(document).ready(function () {
 
 // 熱門動畫(半年內)
 $(document).ready(function () {
-    const apiKey = '0549031a42dea247dc96898cbeffd1d3'; // 請替換成您的 API 金鑰
-
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
     var currentMonth = currentDate.getMonth(); // 0-11
@@ -321,7 +313,6 @@ $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const showId = urlParams.get('id');
     const mediaType = urlParams.get('type');
-    const apiKey = '0549031a42dea247dc96898cbeffd1d3';
 
     if (showId && mediaType) {
         let url;
@@ -339,7 +330,7 @@ $(document).ready(function () {
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                updateInfo(data, mediaType);
+                updateInfo(data, mediaType, data.genres);
             },
             error: function (error) {
                 console.error('Error:', error);
@@ -350,9 +341,8 @@ $(document).ready(function () {
         $('.information').html('<p>未提供影片 ID 或媒體類型</p>');
     }
 
-    function updateInfo(data, mediaType) {
+    function updateInfo(data, mediaType, genresData) {
         const posterUrl = data.poster_path ? `https://image.tmdb.org/t/p/w500${data.poster_path}` : '../images/placeholder.jpg';
-        const genres = data.genres.map(genre => `<a href="">${genre.name}</a>`).join('');
         let releaseDate, country, duration, director;
 
         // 國家/地區代碼對應表
@@ -378,7 +368,7 @@ $(document).ready(function () {
             } else {
                 countryNames = ['N/A'];
             }
-            duration = data.episode_run_time ? `${data.episode_run_time[0]} 分鐘` : '未知'; // 修改這裡
+            duration = data.episode_run_time ? `${data.episode_run_time[0]} 分鐘` : '未知';
             director = data.created_by && data.created_by.length > 0 ? data.created_by[0].name : '未知';
         } else if (mediaType === 'movie') {
             releaseDate = data.release_date || 'N/A';
@@ -387,9 +377,30 @@ $(document).ready(function () {
             } else {
                 countryNames = ['N/A'];
             }
-            duration = data.runtime ? `${data.runtime} 分鐘` : '未知'; // 修改這裡
-            director = data.credits && data.credits.crew ? data.credits.crew.find(c => c.job === 'Director')?.name || '未知' : '未知'; // 修改這裡
+            duration = data.runtime ? `${data.runtime} 分鐘` : '未知';
+            director = data.credits && data.credits.crew ? data.credits.crew.find(c => c.job === 'Director')?.name || '未知' : '未知';
         }
+
+        // 類型名稱對應表
+        const genreCodes = {
+            '动作': '動作',
+            '喜剧': '喜劇',
+            '科幻': '科幻',
+            '恐怖': '恐怖',
+            '爱情': '愛情',
+            '动画': '動畫',
+            '剧情': '劇情',
+            '悬疑': '懸疑',
+            '惊悚': '驚悚',
+            '动作冒险': '動作冒險',
+            '冒险': '冒險',
+            'Sci-Fi & Fantasy': '科幻奇幻',
+            // 添加更多類型名稱對應
+        };
+
+        let genres = genresData.map(genre => genreCodes[genre.name] || genre.name); // 轉換類型名稱
+
+        genres = genres.map(name => `<a href="">${name}</a>`).join('');
 
         $('.card').attr('src', posterUrl);
         $('.style').html(genres);
@@ -465,7 +476,26 @@ $(document).ready(function () {
 
         $('.cover_MB img').attr('src', backdropUrl);
 
-        const genres = data.genres.map(genre => `<a href="">${genre.name}</a>`).join('');
+        // 類型名稱對應表
+        const genreCodes = {
+            '动作': '動作',
+            '喜剧': '喜劇',
+            '科幻': '科幻',
+            '恐怖': '恐怖',
+            '爱情': '愛情',
+            '动画': '動畫',
+            '剧情': '劇情',
+            '悬疑': '懸疑',
+            '惊悚': '驚悚',
+            '动作冒险': '動作冒險',
+            '冒险': '冒險',
+            'Sci-Fi & Fantasy': '科幻奇幻',
+            // 添加更多類型名稱對應
+        };
+
+        let genres = data.genres.map(genre => genreCodes[genre.name] || genre.name); // 轉換類型名稱
+        genres = genres.map(name => `<a href="">${name}</a>`).join('');
+
         let releaseDate, country, duration, director;
 
         // 國家/地區代碼對應表
