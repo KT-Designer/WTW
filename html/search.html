@@ -129,16 +129,20 @@
                 results.forEach((item) => {
                     const posterUrl = item.poster_path
                         ? "https://image.tmdb.org/t/p/w500" + item.poster_path
-                        : item.profile_path ? "https://image.tmdb.org/t/p/w500" + item.profile_path : "找不到海報";
+                        : item.profile_path ? "https://image.tmdb.org/t/p/w500" + item.profile_path : "../images/actor/placeholder.jpg"; // 修改預設圖片路徑
                     const voteAverage = item.vote_average ? item.vote_average.toFixed(1) : "N/A";
                     const name = item.title ? item.title : item.name;
+                    const mediaType = item.media_type; // 取得 media_type
+
                     html += `
                 <li class="card">
-                    <div class="container">
-                        <img src="${posterUrl}" alt="${name}">
-                        <p class="score">${voteAverage}</p>
-                    </div>
-                    <p class="name">${name}</p>
+                    <a href="info.html?id=${item.id}&type=${mediaType}"> 
+                        <div class="container">
+                            <img src="${posterUrl}" alt="${name}">
+                            <p class="score">${voteAverage}</p>
+                        </div>
+                        <p class="name">${name}</p>
+                    </a>
                 </li>
             `;
                 });
