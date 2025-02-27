@@ -555,9 +555,10 @@ $(document).ready(function () {
 
         const backdropUrl = data.backdrop_path
             ? `https://image.tmdb.org/t/p/original${data.backdrop_path}`
-            : '../images/placeholder.png';
+            : '../images/info_MB0.png'; // 使用預設圖片
 
         $('.cover_MB img').attr('src', backdropUrl);
+
 
         // 類型名稱對應表
         const genreCodes = {
