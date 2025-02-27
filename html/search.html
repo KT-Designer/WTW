@@ -129,7 +129,7 @@
                 results.forEach((item) => {
                     const posterUrl = item.poster_path
                         ? "https://image.tmdb.org/t/p/w500" + item.poster_path
-                        : item.profile_path ? "https://image.tmdb.org/t/p/w500" + item.profile_path : "../images/actor/placeholder.jpg"; // 修改預設圖片路徑
+                        : item.profile_path ? "https://image.tmdb.org/t/p/w500" + item.profile_path : "../images/placeholder.png"; // 修改預設圖片路徑
                     const voteAverage = item.vote_average ? item.vote_average.toFixed(1) : "N/A";
                     const name = item.title ? item.title : item.name;
                     const mediaType = item.media_type; // 取得 media_type
