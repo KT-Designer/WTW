@@ -62,7 +62,7 @@ $(document).ready(function () {
             if (results[index]) {
                 var title = results[index].title;
                 var posterPath = results[index].poster_path;
-                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : 'placeholder.jpg';
+                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
                 var voteAverage = results[index].vote_average;
                 var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
                 var movieId = results[index].id;
@@ -120,7 +120,7 @@ $(document).ready(function () {
             if (results[index]) {
                 var title = results[index].name;
                 var posterPath = results[index].poster_path;
-                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : 'placeholder.jpg';
+                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
                 var voteAverage = results[index].vote_average;
                 var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
                 var showId = results[index].id;
@@ -174,7 +174,7 @@ $(document).ready(function () {
             if (results[index]) {
                 var title = results[index].name;
                 var posterPath = results[index].poster_path;
-                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : 'placeholder.jpg';
+                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
                 var voteAverage = results[index].vote_average;
                 var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
                 var showId = results[index].id;
@@ -230,7 +230,7 @@ $(document).ready(function () {
             if (results[index]) {
                 var title = results[index].name;
                 var posterPath = results[index].poster_path;
-                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : 'placeholder.jpg';
+                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
                 var voteAverage = results[index].vote_average;
                 var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
                 var showId = results[index].id;
@@ -289,7 +289,7 @@ $(document).ready(function () {
             if (results[index]) {
                 var title = results[index].name;
                 var posterPath = results[index].poster_path;
-                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : 'placeholder.jpg';
+                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : 'images/placeholder_actor.png';
                 var voteAverage = results[index].vote_average;
                 var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
                 var showId = results[index].id;
@@ -360,6 +360,35 @@ $(document).ready(function () {
             ES: '西班牙',
             TW: '台灣',
             TR: '土耳其',
+            HK: '香港',
+            IN: '印度',
+            IT: '意大利',
+            RU: '俄羅斯',
+            BR: '巴西',
+            MX: '墨西哥',
+            SE: '瑞典',
+            NL: '荷蘭',
+            BE: '比利時',
+            CH: '瑞士',
+            NO: '挪威',
+            DK: '丹麥',
+            FI: '芬蘭',
+            PT: '葡萄牙',
+            AR: '阿根廷',
+            ZA: '南非',
+            NZ: '紐西蘭',
+            IE: '愛爾蘭',
+            PL: '波蘭',
+            ID: '印尼',
+            MY: '馬來西亞',
+            PH: '菲律賓',
+            SG: '新加坡',
+            VN: '越南',
+            AE: '阿拉伯聯合大公國',
+            IL: '以色列',
+            SA: '沙烏地阿拉伯',
+            EG: '埃及',
+            NG: '奈及利亞'
             // 添加更多國家/地區代碼和名稱
         };
 
@@ -432,12 +461,18 @@ $(document).ready(function () {
             type: 'GET',
             dataType: 'json',
             success: function (creditsData) {
-                const actors = creditsData.cast.slice(0, 10).map(actor => `
-                    <div class="actor">
-                        <a href=""><img src="https://image.tmdb.org/t/p/w200${actor.profile_path}" alt="${actor.name}"></a>
-                        <p>${actor.name}</p>
-                    </div>
-                `).join('');
+                const actors = creditsData.cast.slice(0, 10).map(actor => {
+                    const profilePic = actor.profile_path
+                        ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                        : '../images/placeholder.png'; // 使用 placeholder.png
+
+                    return `
+                        <div class="actor">
+                            <a href=""><img src="${profilePic}" alt="${actor.name}"></a>
+                            <p>${actor.name}</p>
+                        </div>
+                    `;
+                }).join('');
                 $('.actors').html(actors);
             },
             error: function (error) {
@@ -520,7 +555,7 @@ $(document).ready(function () {
 
         const backdropUrl = data.backdrop_path
             ? `https://image.tmdb.org/t/p/original${data.backdrop_path}`
-            : '../images/placeholder-backdrop.jpg';
+            : '../images/placeholder.png';
 
         $('.cover_MB img').attr('src', backdropUrl);
 
@@ -569,6 +604,35 @@ $(document).ready(function () {
             ES: '西班牙',
             TW: '台灣',
             TR: '土耳其',
+            HK: '香港',
+            IN: '印度',
+            IT: '意大利',
+            RU: '俄羅斯',
+            BR: '巴西',
+            MX: '墨西哥',
+            SE: '瑞典',
+            NL: '荷蘭',
+            BE: '比利時',
+            CH: '瑞士',
+            NO: '挪威',
+            DK: '丹麥',
+            FI: '芬蘭',
+            PT: '葡萄牙',
+            AR: '阿根廷',
+            ZA: '南非',
+            NZ: '紐西蘭',
+            IE: '愛爾蘭',
+            PL: '波蘭',
+            ID: '印尼',
+            MY: '馬來西亞',
+            PH: '菲律賓',
+            SG: '新加坡',
+            VN: '越南',
+            AE: '阿拉伯聯合大公國',
+            IL: '以色列',
+            SA: '沙烏地阿拉伯',
+            EG: '埃及',
+            NG: '奈及利亞'
         };
 
         let countryNames = [];
@@ -620,7 +684,7 @@ $(document).ready(function () {
                     const actors = creditsData.cast.slice(0, 10).map(actor => {
                         const profilePath = actor.profile_path
                             ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
-                            : '../images/actor/placeholder.jpg';
+                            : '../images/placeholder.png';
                         return `
                             <div class="swiper-slide"> <div class="actor_MB">
                                 <a href=""><img src="${profilePath}" alt="${actor.name}"></a>
@@ -766,7 +830,7 @@ $(document).ready(function () {
                 if (containsChineseOrEnglish(media.title || media.name)) {
                     const posterUrl = media.poster_path
                         ? `https://image.tmdb.org/t/p/w500${media.poster_path}`
-                        : '../images/placeholder-poster.jpg';
+                        : '../images/placeholder.png';
                     similarHtml += `
                         <div class="swiper-slide">
                             <div class="card">
@@ -875,7 +939,7 @@ $(document).ready(function () {
         $.each(results, function (index, movie) {
             var title = movie.title;
             var posterPath = movie.poster_path;
-            var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : 'placeholder.jpg';
+            var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
             var voteAverage = movie.vote_average;
             var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
             var movieId = movie.id; // 取得電影 ID
@@ -1083,7 +1147,7 @@ $(document).ready(function () {
         $.each(tvShows, function (index, tvShow) {
             var name = tvShow.name;
             var posterPath = tvShow.poster_path;
-            var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : 'placeholder.jpg';
+            var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
             var voteAverage = tvShow.vote_average;
             var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
             var tvShowId = tvShow.id; // 取得電視劇 ID
@@ -1205,7 +1269,128 @@ $(document).ready(function () {
 });
 
 
+// 主題館
+$(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const theme = urlParams.get('theme');
+    const resultsContainer = $('#style_love');
 
+    let apiUrl;
+    let mediaType;
+
+    switch (theme) {
+        case 'love':
+            apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=10749&language=zh-TW`;
+            mediaType = 'movie';
+            break;
+        case 'korean':
+            apiUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&with_networks=213&with_original_language=ko&language=zh-TW`; // 修改 apiUrl
+            mediaType = 'tv';
+            break;
+        case 'comedy':
+            apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=35&without_genres=16&language=zh-TW`;
+            mediaType = 'movie';
+            break;
+        case 'horror':
+            apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=27,53&language=zh-TW`;
+            mediaType = 'movie';
+            break;
+        case 'suspense':
+            apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=9648,53&language=zh-TW`;
+            mediaType = 'movie';
+            break;
+        case 'action':
+            apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=28&without_genres=16&language=zh-TW`;
+            mediaType = 'movie';
+            break;
+        case 'anime':
+            apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=16&language=zh-TW`;
+            mediaType = 'movie';
+            break;
+        case 'zombies':
+            apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_keywords=9701&language=zh-TW`;
+            mediaType = 'movie';
+            break;
+        case 'netflix':
+            apiUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&with_watch_providers=8&watch_region=TW&without_genres=16&language=zh-TW`;
+            mediaType = 'tv';
+            break;
+        case 'trending_movies':
+            apiUrl = `https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}&language=zh-TW`;
+            mediaType = 'movie';
+            break;
+        case 'trending_tv':
+            apiUrl = `https://api.themoviedb.org/3/trending/tv/week?api_key=${apiKey}&language=zh-TW`;
+            mediaType = 'tv';
+            break;
+        default:
+            resultsContainer.html('<p>未知的主題</p>');
+            return;
+    }
+    console.log("API URL:", apiUrl);
+
+    let allMediaItems = [];
+    let totalPages = 1;
+
+    function fetchPage(page) {
+        $.ajax({
+            url: apiUrl + `&page=${page}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(`API 回應 (第 ${page} 頁):`, data);
+                allMediaItems = allMediaItems.concat(data.results);
+                totalPages = data.total_pages;
+
+                if (page < totalPages && allMediaItems.length < 100) {
+                    fetchPage(page + 1);
+                } else {
+                    displayMediaItems(allMediaItems, mediaType);
+                }
+            },
+            error: function (error) {
+                console.error('Error:', error);
+                resultsContainer.html('<p>無法取得影片資訊</p>');
+            }
+        });
+    }
+
+    function displayMediaItems(mediaItems, mediaType) {
+        $.each(mediaItems, function (index, mediaItem) {
+            if (index >= 100) {
+                return false;
+            }
+            if (containsChineseOrEnglish(mediaItem.title || mediaItem.name)) {
+                var name = mediaItem.title || mediaItem.name || '未知片名';
+                var posterPath = mediaItem.poster_path;
+                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
+                var voteAverage = mediaItem.vote_average;
+                var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
+                var mediaId = mediaItem.id;
+
+                var resultHtml = `
+                    <li class="card">
+                        <div class="container">
+                            <a href="info.html?id=${mediaId}&type=${mediaType}">
+                                <img src="${posterUrl}" alt="${name} 海報">
+                            </a>
+                            <p class="score">${formattedVoteAverage}</p>
+                        </div>
+                        <p class="name">${name}</p>
+                    </li>
+                `;
+                resultsContainer.append(resultHtml);
+            }
+        });
+    }
+
+    fetchPage(1);
+
+    function containsChineseOrEnglish(str) {
+        if (!str) return false;
+        return /[\u4e00-\u9fa5a-zA-Z]/.test(str);
+    }
+});
 
 
 
