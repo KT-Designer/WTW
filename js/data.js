@@ -701,7 +701,6 @@ $(document).ready(function () {
     const showId = urlParams.get('id');
     const mediaType = urlParams.get('type');
 
-
     if (showId && mediaType) {
         const url = mediaType === 'tv'
             ? `https://api.themoviedb.org/3/tv/${showId}?api_key=${apiKey}&language=zh-TW`
@@ -763,28 +762,37 @@ $(document).ready(function () {
         let similarHtml = '';
         if (similarResults && similarResults.length > 0) {
             similarResults.forEach(media => {
-                const posterUrl = media.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${media.poster_path}`
-                    : '../images/placeholder-poster.jpg';
-                similarHtml += `
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <div class="picbox">
-                                <a href="?id=${media.id}&type=${mediaType}">
-                                    <img class="card_img" src="${posterUrl}" alt="${media.title || media.name}">
-                                </a>
-                                <p class="score">${media.vote_average.toFixed(1)}</p>
+                // 檢查影片名稱是否包含中文或英文字符
+                if (containsChineseOrEnglish(media.title || media.name)) {
+                    const posterUrl = media.poster_path
+                        ? `https://image.tmdb.org/t/p/w500${media.poster_path}`
+                        : '../images/placeholder-poster.jpg';
+                    similarHtml += `
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <div class="picbox">
+                                    <a href="?id=${media.id}&type=${mediaType}">
+                                        <img class="card_img" src="${posterUrl}" alt="${media.title || media.name}">
+                                    </a>
+                                    <p class="score">${media.vote_average.toFixed(1)}</p>
+                                </div>
+                                <p class="name">${media.title || media.name}</p>
                             </div>
-                            <p class="name">${media.title || media.name}</p>
                         </div>
-                    </div>
-                `;
+                    `;
+                }
             });
             $('#otherfilm .swiper-wrapper').html(similarHtml);
             $('#otherfilm h1').text(mediaType === 'tv' ? '相關影片' : '相關影片'); // 動態標題
         } else {
             $('#otherfilm .swiper-wrapper').html('<p style="color: #C10171; font-family: \'Noto Sans TC\';">無相關影片</p>');
         }
+    }
+
+    // 檢查字串是否包含中文或英文字符
+    function containsChineseOrEnglish(str) {
+        if (!str) return false;
+        return /[\u4e00-\u9fa5a-zA-Z]/.test(str);
     }
 });
 
