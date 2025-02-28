@@ -874,6 +874,11 @@ $(document).ready(function () {
     var currentPage = 1;
     var resultsPerPage = 20; // 每頁顯示的結果數量
 
+    function containsChineseOrEnglish(str) {
+        if (!str) return false;
+        return /[\u4e00-\u9fa5a-zA-Z]/.test(str);
+    }
+
     function fetchPage(page) {
         console.log('fetchPage: 正在載入第', page, '頁，總頁數：', totalPages);
         var url = 'https://api.themoviedb.org/3/movie/popular?api_key=' + apiKey + '&language=zh-TW&page=' + page;
@@ -907,8 +912,8 @@ $(document).ready(function () {
             },
             error: function (error) {
                 console.error('fetchPage: 發生錯誤：', error);
-                $('.loading').text('載入失敗，重試'); // 顯示錯誤訊息
-                $('.loading').prop('disabled', false); // 恢復按鈕狀態
+                $('.loading').text('載入失敗，重試');
+                $('.loading').prop('disabled', false);
             },
             complete: function () {
                 $('.loading').prop('disabled', false);
@@ -916,16 +921,15 @@ $(document).ready(function () {
         });
     }
 
-    // 初始載入多頁，確保有足夠的資料
     function fetchInitialPages() {
-        var initialPagesToLoad = 2; // 修改初始載入頁數
+        var initialPagesToLoad = 2;
         console.log('fetchInitialPages: 初始載入前', initialPagesToLoad, '頁。');
         for (let i = 1; i <= initialPagesToLoad; i++) {
             fetchPage(i);
         }
     }
 
-    fetchInitialPages(); // 初始載入
+    fetchInitialPages();
 
     function displayResults(results) {
         console.log('displayResults: 顯示結果：', results);
@@ -943,7 +947,7 @@ $(document).ready(function () {
             var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
             var voteAverage = movie.vote_average;
             var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
-            var movieId = movie.id; // 取得電影 ID
+            var movieId = movie.id;
 
             var resultHtml = `
                 <li class="card">
@@ -963,8 +967,8 @@ $(document).ready(function () {
     $('.loading').click(function () {
         console.log('載入更多按鈕被點擊，當前頁數：', currentPage);
         if (currentPage < totalPages) {
-            $(this).text('載入更多'); // 修改按鈕文字
-            $(this).prop('disabled', true); // 禁用按鈕
+            $(this).text('載入更多');
+            $(this).prop('disabled', true);
             currentPage++;
             fetchPage(currentPage);
         } else {
@@ -972,15 +976,13 @@ $(document).ready(function () {
         }
     });
 
-    // 篩選
     const classItems = document.querySelectorAll('.class-item');
     const yearItems = document.querySelectorAll('.year-item');
-    const range = document.getElementById('range');
     const searchButton = document.querySelector('.search');
 
     let selectedClass = '全部';
     let selectedYear = '全部';
-    let selectedScore = [0, 10]; // 初始評分範圍
+    let selectedScore = [0, 10];
 
     classItems.forEach(item => {
         item.addEventListener('click', () => {
@@ -1000,12 +1002,11 @@ $(document).ready(function () {
         });
     });
 
-    // 篩選_評分
     $("#range_movie").slider({
         range: "min",
         min: 0,
         max: 10,
-        value: 3, // 將預設值設定為 5
+        value: 3,
         slide: function (e, ui) {
             $(".ui-slider-handle").html(ui.value);
             selectedScore = [ui.value, 10];
@@ -1013,7 +1014,7 @@ $(document).ready(function () {
         },
     });
 
-    $(".ui-slider-handle").html("3"); // 將滑動手柄的初始值設定為 5
+    $(".ui-slider-handle").html("3");
 
     searchButton.addEventListener('click', () => {
         displayFilteredResults(allResults);
@@ -1056,7 +1057,16 @@ $(document).ready(function () {
             }
 
             // 評分篩選
-            return movie.vote_average >= selectedScore[0] && movie.vote_average <= selectedScore[1];
+            if (!(movie.vote_average >= selectedScore[0] && movie.vote_average <= selectedScore[1])) {
+                return false;
+            }
+
+            // 片名篩選 (新增)
+            if (!containsChineseOrEnglish(movie.title)) {
+                return false;
+            }
+
+            return true;
         });
 
         console.log('displayFilteredResults: 篩選後的結果：', filteredResults);
@@ -1082,6 +1092,11 @@ $(document).ready(function () {
     var totalPages = 1;
     var currentPage = 1;
     var resultsPerPage = 20;
+
+    function containsChineseOrEnglish(str) {
+        if (!str) return false;
+        return /[\u4e00-\u9fa5a-zA-Z]/.test(str);
+    }
 
     function fetchTVShowsPage(page) {
         console.log('fetchTVShowsPage: 正在載入第', page, '頁，總頁數：', totalPages);
@@ -1151,7 +1166,7 @@ $(document).ready(function () {
             var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
             var voteAverage = tvShow.vote_average;
             var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
-            var tvShowId = tvShow.id; // 取得電視劇 ID
+            var tvShowId = tvShow.id;
 
             var resultHtml = `
                 <li class="card">
@@ -1182,7 +1197,6 @@ $(document).ready(function () {
 
     const classItems = document.querySelectorAll('.class-item');
     const yearItems = document.querySelectorAll('.year-item');
-    const range = document.getElementById('range');
     const searchButton = document.querySelector('.search');
 
     let selectedClass = '全部';
@@ -1261,13 +1275,29 @@ $(document).ready(function () {
                 return false;
             }
 
-            return tvShow.vote_average >= selectedScore[0] && tvShow.vote_average <= selectedScore[1];
+            if (!(tvShow.vote_average >= selectedScore[0] && tvShow.vote_average <= selectedScore[1])) {
+                return false;
+            }
+
+            // 電視劇名稱篩選
+            if (!containsChineseOrEnglish(tvShow.name)) {
+                return false;
+            }
+
+            // 排除 "Geren 16"
+            if (tvShow.name === "Geren 16") {
+                return false;
+            }
+
+            return true;
         });
 
         console.log('displayFilteredTVShows: 篩選後的結果：', filteredTVShows);
         displayTVShows(filteredTVShows);
     }
 });
+
+
 
 
 // 主題館
