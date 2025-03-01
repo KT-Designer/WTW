@@ -454,6 +454,7 @@ $(document).ready(function () {
         $('.dir .name').text(director);
         $('.story p').text(data.overview);
 
+        // 演員
         const creditsUrl = mediaType === 'tv' ? `https://api.themoviedb.org/3/tv/${showId}/credits?api_key=${apiKey}&language=zh-TW` : `https://api.themoviedb.org/3/movie/${showId}/credits?api_key=${apiKey}&language=zh-TW`;
 
         $.ajax({
@@ -548,8 +549,7 @@ $(document).ready(function () {
     })
 
 
-
-
+    // 串流平台
     function displayProviders(providers, homepage) {
         if (providers && providers.flatrate) {
             const providersHtml = providers.flatrate.map(provider => `
@@ -565,6 +565,95 @@ $(document).ready(function () {
         }
     }
 });
+
+// 加入片單
+$(document).ready(function () {
+    // 從 URL 獲取 movieId 和 type
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get('id');
+    const mediaType = urlParams.get('type');
+
+    // 檢查 URL 參數是否存在，並且確認是在 info.html 頁面
+    if (movieId && mediaType && window.location.pathname.includes('info.html')) {
+        // 獲取影片詳細信息
+        const apiUrl = `https://api.themoviedb.org/3/${mediaType}/${movieId}?api_key=${apiKey}&language=zh-TW`;
+
+        $.ajax({
+            url: apiUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                if (data && (data.title || data.name) && data.poster_path) {
+                    // 檢查影片是否已經收藏，並更新按鈕狀態
+                    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+                    const isFavoriteIndex = favorites.findIndex(item => item.id === movieId && item.type === mediaType);
+                    updateButtonState(isFavoriteIndex !== -1);
+
+                    // 加入片單按鈕的點擊事件
+                    $('.add').click(function () {
+                        // 從 localStorage 獲取收藏列表
+                        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+                        // 檢查影片是否已經收藏
+                        const isFavoriteIndex = favorites.findIndex(item => item.id === movieId && item.type === mediaType);
+
+                        if (isFavoriteIndex === -1) {
+                            // 將影片資訊添加到收藏列表
+                            favorites.push({
+                                id: movieId,
+                                type: mediaType,
+                                title: data.title || data.name, // 影片標題
+                                posterPath: data.poster_path, // 海報路徑
+                                // 可以添加其他您需要的影片資訊
+                            });
+
+                            // 將更新後的收藏列表存回 localStorage
+                            try {
+                                localStorage.setItem('favorites', JSON.stringify(favorites));
+                                alert('已加入片單！');
+                                updateButtonState(true); // 更新按鈕狀態
+                            } catch (error) {
+                                console.error('localStorage error:', error);
+                                alert('加入片單失敗，請稍後再試！');
+                            }
+                        } else {
+                            // 從收藏列表中移除影片
+                            favorites.splice(isFavoriteIndex, 1);
+
+                            // 將更新後的收藏列表存回 localStorage
+                            try {
+                                localStorage.setItem('favorites', JSON.stringify(favorites));
+                                alert('已從片單中移除！');
+                                updateButtonState(false); // 更新按鈕狀態
+                            } catch (error) {
+                                console.error('localStorage error:', error);
+                                alert('移除片單失敗，請稍後再試！');
+                            }
+                        }
+                    });
+                } else {
+                    console.error("API success data missing required fields:", data);
+                    alert('API 回應資料不完整，請稍後再試！');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("API error:", error);
+                console.error("Status:", status);
+                console.error("Response:", xhr.responseText);
+                alert('無法獲取影片資訊，請稍後再試！');
+            }
+        });
+    }
+});
+
+// 更新按鈕狀態的函數
+function updateButtonState(isFavorite) {
+    if (isFavorite) {
+        $('.add').css('background-color', '#5C00F2').text('移出片單');
+    } else {
+        $('.add').css('background-color', '').text('加入片單');
+    }
+}
 
 
 
@@ -717,6 +806,7 @@ $(document).ready(function () {
         $('.dir_MB .name').text(director);
         $('.story_MB p').text(data.overview);
 
+        // 演員
         const creditsUrl = mediaType === 'tv'
             ? `https://api.themoviedb.org/3/tv/${showId}/credits?api_key=${apiKey}&language=zh-TW`
             : `https://api.themoviedb.org/3/movie/${showId}/credits?api_key=${apiKey}&language=zh-TW`;
@@ -786,7 +876,7 @@ $(document).ready(function () {
         });
 
     }
-
+    // 串流平台
     function displayProviders(providers, homepage) {
         if (providers && providers.flatrate) {
             const providersHtml = providers.flatrate.map(provider => `
@@ -1126,15 +1216,6 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-
-
-
-
-
 // 影劇頁_drmam.html
 $(document).ready(function () {
     var allTVShows = [];
@@ -1348,7 +1429,7 @@ $(document).ready(function () {
 
 
 
-// 主題館
+// 主題館_them.html
 $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const theme = urlParams.get('theme');
@@ -1471,6 +1552,29 @@ $(document).ready(function () {
     }
 });
 
+
+
+// 我的片單_collect.html
+$(document).ready(function () {
+    // 從 localStorage 獲取收藏列表
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    // 顯示收藏列表
+    const favoriteList = $('#favorite');
+    favorites.forEach(item => {
+        const posterUrl = item.posterPath ? `https://image.tmdb.org/t/p/w500${item.posterPath}` : '../images/placeholder.jpg';
+        favoriteList.append(`
+            <li class="card">
+                <div class="container">
+                    <a href="info.html?id=${item.id}&type=${item.type}">
+                        <img src="${posterUrl}" alt="${item.title} 海報">
+                    </a>
+                </div>
+                <p class="name">${item.title}</p>
+            </li>
+        `);
+    });
+});
 
 
 
