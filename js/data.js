@@ -34,6 +34,164 @@ const MDU0OTAzMWE = '0549';
 
 
 // 首頁_index.html
+// Hero
+$(document).ready(function () {
+    // 生成連結的程式碼
+    $('.swiper_hero').each(function () {
+        const slide = $(this);
+        const id = slide.data('id');
+        const mediaType = slide.data('media-type');
+        const moreLink = slide.find('.more-link');
+
+        moreLink.attr('href', `html/info.html?id=${id}&type=${mediaType}`);
+
+        // 在頁面載入時檢查收藏狀態
+        checkFavoriteStatus(slide, id, mediaType);
+    });
+
+    // 提前綁定點擊事件
+    $('.hero_add').click(function () {
+        // 獲取當前 swiper-slide 元素
+        const slide = $(this).closest('.swiper-slide');
+        // 從 data 屬性中獲取 id 和 mediaType
+        const id = slide.data('id');
+        const mediaType = slide.data('media-type');
+
+        // 從 localStorage 獲取收藏列表
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+        // 檢查影片是否已經收藏
+        const isFavoriteIndex = favorites.findIndex(item => item.id === id && item.type === mediaType);
+
+        if (isFavoriteIndex === -1) {
+            // 使用 TMDb API 獲取海報路徑
+            const apiUrl = `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${apiKey}&language=zh-TW`;
+
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data && data.poster_path) {
+                        // 將影片資訊添加到收藏列表
+                        favorites.push({
+                            id: id,
+                            type: mediaType,
+                            title: slide.find('.title').text(), // 從 HTML 中獲取影片標題
+                            posterPath: data.poster_path, // 從 API 回應中獲取海報路徑
+                            // 可以添加其他您需要的影片資訊
+                        });
+
+                        // 將更新後的收藏列表存回 localStorage
+                        try {
+                            localStorage.setItem('favorites', JSON.stringify(favorites));
+                            alert('已加入片單！');
+                            updateAddButtonState(true, slide); // 更新按鈕狀態
+                        } catch (error) {
+                            console.error('localStorage error:', error);
+                            alert('加入片單失敗，請稍後再試！');
+                        }
+                    } else {
+                        console.error('API 回應資料不完整！', data); // 添加 console.error()
+                        alert('加入片單失敗，API 回應資料不完整！');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('API 請求失敗！', error, xhr); // 添加 console.error()
+                    alert('加入片單失敗，API 請求失敗！');
+                }
+            });
+        } else {
+            // 從收藏列表中移除影片
+            favorites.splice(isFavoriteIndex, 1);
+
+            // 將更新後的收藏列表存回 localStorage
+            try {
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                alert('已從片單中移除！');
+                updateAddButtonState(false, slide); // 更新按鈕狀態
+            } catch (error) {
+                console.error('localStorage error:', error);
+                alert('移除片單失敗，請稍後再試！');
+            }
+        }
+    });
+
+    // 從 URL 獲取 movieId 和 type (info.html 頁面)
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get('id');
+    const mediaType = urlParams.get('type');
+
+    // 檢查 URL 參數是否存在，並且確認是在 info.html 頁面
+    if (movieId && mediaType && window.location.pathname.includes('info.html')) {
+        // 獲取影片詳細信息
+        const apiUrl = `https://api.themoviedb.org/3/${mediaType}/${movieId}?api_key=${apiKey}&language=zh-TW`;
+
+        $.ajax({
+            url: apiUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                if (data && (data.title || data.name) && data.poster_path) {
+                    // 檢查影片是否已經收藏，並更新按鈕狀態
+                    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+                    const isFavoriteIndex = favorites.findIndex(item => item.id === movieId && item.type === mediaType);
+                    // 找到當前 info.html 頁面中對應的 swiper-slide 元素，並更新按鈕狀態
+                    const currentSlide = $('.swiper_hero').filter(function () {
+                        return $(this).data('id') === movieId && $(this).data('media-type') === mediaType;
+                    });
+                    updateAddButtonState(isFavoriteIndex !== -1, currentSlide);
+                } else {
+                    console.error("API success data missing required fields:", data);
+                    alert('API 回應資料不完整，請稍後再試！');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("API error:", error);
+                console.error("Status:", status);
+                console.error("Response:", xhr.responseText);
+                alert('無法獲取影片資訊，請稍後再試！');
+            }
+        });
+    }
+});
+
+function updateAddButtonState(isFavorite, slide) {
+    // 獲取當前 swiper-slide 元素中的 "加入片單" 按鈕
+    const addButton = slide.find('.hero_add');
+
+    if (isFavorite) {
+        addButton.css('background-color', '#5C00F2');
+        addButton.text('已加入片單');
+    } else {
+        addButton.css('background-color', ''); // 恢復默認背景色
+        addButton.text('加入片單');
+    }
+}
+
+// 新增函數：檢查收藏狀態
+function checkFavoriteStatus(slide, id, mediaType) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const isFavoriteIndex = favorites.findIndex(item => item.id === id && item.type === mediaType);
+    updateAddButtonState(isFavoriteIndex !== -1, slide);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 熱門電影(上映中)
 $(document).ready(function () {
     var url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=' + apiKey + '&language=zh-TW&page=1';
@@ -1573,6 +1731,127 @@ $(document).ready(function () {
         `);
     });
 });
+
+
+
+
+$(document).ready(function () {
+    // 從 localStorage 獲取收藏列表
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    // 計算電影和影集的數量
+    let movieCount = 0;
+    let tvCount = 0;
+    favorites.forEach(item => {
+        if (item.type === 'movie') {
+            movieCount++;
+        } else if (item.type === 'tv') {
+            tvCount++;
+        }
+    });
+
+    // 更新按鈕上的顯示文字
+    $('.sort-item').eq(1).text(`電影 (${movieCount})`);
+    $('.sort-item').eq(2).text(`影集 (${tvCount})`);
+
+    // 顯示收藏列表
+    displayFavorites(favorites);
+
+    // 為按鈕添加點擊事件處理程序
+    $('.sort-item').click(function () {
+        // 移除所有按鈕的 active 類
+        $('.sort-item').removeClass('active');
+        // 為點擊的按鈕添加 active 類
+        $(this).addClass('active');
+
+        // 根據按鈕的文字，過濾收藏列表
+        let filteredFavorites = [];
+        const buttonText = $(this).text();
+        if (buttonText === '全部') {
+            filteredFavorites = favorites;
+        } else if (buttonText === `電影 (${movieCount})`) {
+            filteredFavorites = favorites.filter(item => item.type === 'movie');
+        } else if (buttonText === `影集 (${tvCount})`) {
+            filteredFavorites = favorites.filter(item => item.type === 'tv');
+        }
+
+        // 重新渲染收藏列表
+        displayFavorites(filteredFavorites);
+    });
+});
+
+
+
+$(document).ready(function () {
+    // 從 localStorage 獲取收藏列表
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    // 計算電影和影集的數量
+    let movieCount = 0;
+    let tvCount = 0;
+    favorites.forEach(item => {
+        if (item.type === 'movie') {
+            movieCount++;
+        } else if (item.type === 'tv') {
+            tvCount++;
+        }
+    });
+
+    // 更新按鈕上的顯示文字
+    $('.sort-item').eq(1).text(`電影 (${movieCount})`);
+    $('.sort-item').eq(2).text(`影集 (${tvCount})`);
+
+    // 顯示收藏列表
+    displayFavorites(favorites);
+
+    // 為按鈕添加點擊事件處理程序
+    $('.sort-item').click(function () {
+        // 移除所有按鈕的 active 類
+        $('.sort-item').removeClass('active');
+        // 為點擊的按鈕添加 active 類
+        $(this).addClass('active');
+
+        // 根據按鈕的文字，過濾收藏列表
+        let filteredFavorites = [];
+        const buttonText = $(this).text();
+        if (buttonText === '全部') {
+            filteredFavorites = favorites;
+        } else if (buttonText === `電影 (${movieCount})`) {
+            filteredFavorites = favorites.filter(item => item.type === 'movie');
+        } else if (buttonText === `影集 (${tvCount})`) {
+            filteredFavorites = favorites.filter(item => item.type === 'tv');
+        }
+
+        // 重新渲染收藏列表
+        displayFavorites(filteredFavorites);
+    });
+});
+
+// 顯示收藏列表的函數
+function displayFavorites(favorites) {
+    const favoriteList = $('#favorite');
+    favoriteList.empty(); // 清空列表
+
+    if (favorites.length > 0) {
+        favorites.forEach(item => {
+            const posterUrl = item.posterPath ? `https://image.tmdb.org/t/p/w500${item.posterPath}` : '../images/placeholder.jpg';
+            favoriteList.append(`
+                <li class="card">
+                    <div class="container">
+                        <a href="info.html?id=${item.id}&type=${item.type}">
+                            <img src="${posterUrl}" alt="${item.title} 海報">
+                        </a>
+                    </div>
+                    <p class="name">${item.title}</p>
+                </li>
+            `);
+        });
+    } else {
+        favoriteList.append('<p class="notfound"">片單空空的...ಥ_ಥ</p>');
+    }
+}
+
+
 
 
 

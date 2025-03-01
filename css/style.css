@@ -277,7 +277,7 @@ body a {
     background-origin: padding-box, border-box;
 }
 
-.info .add {
+.info .hero_add {
     width: 160px;
     height: 42px;
     font-family: 'Noto Sans TC';
@@ -1292,6 +1292,18 @@ footer p {
     color: #FFFFFF;
 }
 
+
+/* 收藏頁_collect.html */
+#favorite .notfound {
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Noto Sans TC';
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
 
 
