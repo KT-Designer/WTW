@@ -499,7 +499,56 @@ $(document).ready(function () {
             }
         });
 
+
+        // 預告片
+        const videosUrl = mediaType === 'tv'
+            ? `https://api.themoviedb.org/3/tv/${showId}/videos?api_key=${apiKey}&language=zh-TW`
+            : `https://api.themoviedb.org/3/movie/${showId}/videos?api_key=${apiKey}&language=zh-TW`;
+
+        $.ajax({
+            url: videosUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function (videosData) {
+                const youtubeTrailers = videosData.results.filter(video => video.site === 'YouTube' && (video.type === 'Trailer' || video.type === 'Teaser' || video.name.toLowerCase().includes('trailer') || video.name.toLowerCase().includes('預告')));
+
+                if (youtubeTrailers.length > 0) {
+                    const trailer = youtubeTrailers[0];
+                    if (trailer.key) {
+                        const trailerUrl = `https://www.youtube.com/embed/${trailer.key}?rel=0&autoplay=1`;
+                        $('#masm_video_example_1 iframe').attr('data-src', trailerUrl);
+                        $('.modal-trigger.video-trigger').show(); // 顯示播放按鈕
+                        $('#masm_video_example_1 iframe').on('error', function () {
+                            console.log('iframe發生錯誤，src=' + trailerUrl);
+                        });
+                    } else {
+                        $('#masm_video_example_1 iframe').attr('data-src', '');
+                        $('.modal-trigger.video-trigger').hide(); // 隱藏播放按鈕
+                    }
+                } else {
+                    $('#masm_video_example_1 iframe').attr('data-src', '');
+                    $('.modal-trigger.video-trigger').hide(); // 隱藏播放按鈕
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching videos data:', error);
+                $('#masm_video_example_1 iframe').attr('data-src', '');
+                $('.modal-trigger.video-trigger').hide(); // 隱藏播放按鈕
+            }
+        });
     }
+
+    $(document).on('click', '.video-trigger', function () {
+        let src = $('#masm_video_example_1 iframe').attr('data-src');
+        $('#masm_video_example_1 iframe').attr('src', src);
+    })
+
+    $(document).on('click', '.modal-close', function () {
+        $('#masm_video_example_1 iframe').attr('src', '');
+    })
+
+
+
 
     function displayProviders(providers, homepage) {
         if (providers && providers.flatrate) {
@@ -1296,7 +1345,6 @@ $(document).ready(function () {
         displayTVShows(filteredTVShows);
     }
 });
-
 
 
 
