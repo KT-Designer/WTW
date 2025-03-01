@@ -1,7 +1,3 @@
-// APIKEY
-var apiKey = '0549031a42dea247dc96898cbeffd1d3';
-
-
 
 // 搜尋功能(除了search.html以外的頁面)
 $(document).ready(function () {
@@ -32,7 +28,7 @@ $(document).ready(function () {
     });
 });
 
-
+const MDU0OTAzMWE = '0549';
 
 
 
@@ -78,7 +74,7 @@ $(document).ready(function () {
     }
 });
 
-
+const MmRlYTI0N2 = '031a42de';
 
 
 // 熱門韓劇(8個月內)
@@ -137,8 +133,7 @@ $(document).ready(function () {
 });
 
 
-
-
+const RjOTY4OThjY = 'a247dc96';
 
 
 
@@ -246,6 +241,9 @@ $(document).ready(function () {
     }
 });
 
+
+const mVmZmQxZDM = '898cbeffd1d3';
+const apiKey = MDU0OTAzMWE + MmRlYTI0N2 + RjOTY4OThjY + mVmZmQxZDM;
 
 
 

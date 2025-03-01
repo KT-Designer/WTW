@@ -15,6 +15,9 @@ body a {
     text-decoration: none;
 }
 
+#WTWKEY {
+    display: none;
+}
 
 /* Header */
 .menu_MB {
