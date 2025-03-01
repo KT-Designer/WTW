@@ -162,7 +162,7 @@ function updateAddButtonState(isFavorite, slide) {
 
     if (isFavorite) {
         addButton.css('background-color', '#5C00F2');
-        addButton.text('已加入片單');
+        addButton.text('移除片單');
     } else {
         addButton.css('background-color', ''); // 恢復默認背景色
         addButton.text('加入片單');
