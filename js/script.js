@@ -3,7 +3,7 @@ $(document).ready(function () {
     // Hero
     var swiperhero = new Swiper("#hero", {
         autoplay: {
-            delay: 2000,
+            delay: 2500,
             disableOnInteraction: false
         },
         pagination: {
