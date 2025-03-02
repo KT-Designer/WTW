@@ -124,6 +124,8 @@
 
 
 
+    <!-- Loadiing -->
+    <div id="loading"></div>
 
 
 
@@ -1318,6 +1320,11 @@
     <script src="./js/jquery-ui.min.js"></script>
     <!-- jQuery UI touch -->
     <script src="./js/jquery.ui.touch-punch.min.js"></script>
+    <!-- LOADING -->
+    <script src="./js/lottie.min.js"></script>
+
+
+
     <!-- 全站JS -->
     <script src="./js/script.js"></script>
     <script src="./js/data.js"></script>
@@ -1355,6 +1362,34 @@
             });
         });
     </script>
+
+
+    <!-- Loading -->
+    <script src="">
+        const loadingAnimation = lottie.loadAnimation({
+            container: document.getElementById('loading'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'images/loading.json' // 請替換為您的 JSON 檔案路徑
+        });
+
+        // 網頁載入完成後，隱藏載入動畫
+        window.addEventListener('load', function () {
+            // 添加延遲
+            setTimeout(function () {
+                document.getElementById('loading').style.display = 'none';
+            }, 1000); // 延遲 500 毫秒
+        });
+    </script>
+
+
+
+
+
+
+
+
 </body>
 
 </html>

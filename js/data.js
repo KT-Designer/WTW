@@ -1751,16 +1751,16 @@ $(document).ready(function () {
     });
 
     // 更新按鈕上的顯示文字
-    $('.sort-item').eq(1).text(`電影 (${movieCount})`);
-    $('.sort-item').eq(2).text(`影集 (${tvCount})`);
+    $('.collect_item').eq(1).text(`電影 (${movieCount})`);
+    $('.collect_item').eq(2).text(`影集 (${tvCount})`);
 
     // 顯示收藏列表
     displayFavorites(favorites);
 
     // 為按鈕添加點擊事件處理程序
-    $('.sort-item').click(function () {
+    $('.collect_item').click(function () {
         // 移除所有按鈕的 active 類
-        $('.sort-item').removeClass('active');
+        $('.collect_item').removeClass('active');
         // 為點擊的按鈕添加 active 類
         $(this).addClass('active');
 
@@ -1798,16 +1798,16 @@ $(document).ready(function () {
     });
 
     // 更新按鈕上的顯示文字
-    $('.sort-item').eq(1).text(`電影 (${movieCount})`);
-    $('.sort-item').eq(2).text(`影集 (${tvCount})`);
+    $('.collect_item').eq(1).text(`電影 (${movieCount})`);
+    $('.collect_item').eq(2).text(`影集 (${tvCount})`);
 
     // 顯示收藏列表
     displayFavorites(favorites);
 
     // 為按鈕添加點擊事件處理程序
-    $('.sort-item').click(function () {
+    $('.collect_item').click(function () {
         // 移除所有按鈕的 active 類
-        $('.sort-item').removeClass('active');
+        $('.collect_item').removeClass('active');
         // 為點擊的按鈕添加 active 類
         $(this).addClass('active');
 
