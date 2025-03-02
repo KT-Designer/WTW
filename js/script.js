@@ -268,14 +268,7 @@ $(document).ready(function () {
 });
 
 
-// 演員
-// $(document).ready(function () {
-//     var swiperactors = new Swiper("#actors", {
-//         slidesPerView: 4.5,
-//         spaceBetween: 30,
 
-//     });
-// });
 
 
 

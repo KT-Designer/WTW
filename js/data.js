@@ -240,21 +240,20 @@ $(document).ready(function () {
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
     var currentMonth = currentDate.getMonth(); // 0-11
+    var eightMonthsAgoMonth = currentMonth - 8;
+    var eightMonthsAgoYear = currentYear;
 
-    // 計算半年前的日期
-    var sixMonthsAgoYear = currentYear;
-    var sixMonthsAgoMonth = currentMonth - 8;
-    if (sixMonthsAgoMonth < 0) {
-        sixMonthsAgoYear--;
-        sixMonthsAgoMonth += 12;
+    if (eightMonthsAgoMonth < 0) {
+        eightMonthsAgoYear--;
+        eightMonthsAgoMonth += 12;
     }
 
-    // 格式化日期為YYYY-MM-DD
-    var startDate = sixMonthsAgoYear + '-' + String(sixMonthsAgoMonth + 1).padStart(2, '0') + '-01';
+    // 格式化日期為 YYYY-MM-DD
+    var startDate = eightMonthsAgoYear + '-' + String(eightMonthsAgoMonth + 1).padStart(2, '0') + '-01';
 
     var url = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey +
-        '&language=zh-TW&sort_by=popularity.desc&first_air_date.gte=' + oneYearAgoDate +
-        '&with_original_language=ko&page=' + page;
+        '&language=zh-TW&sort_by=popularity.desc&with_original_language=ko&first_air_date.gte=' + startDate +
+        '&include_null_first_air_dates=false';
 
     $.ajax({
         url: url,
@@ -265,6 +264,12 @@ $(document).ready(function () {
         },
         error: function (error) {
             console.error('Error:', error);
+            // 在這裡可以添加錯誤處理，例如顯示錯誤圖片或訊息
+            $('.swiper_korean').each(function (index, slide) {
+                $(slide).find('.card_img').attr('src', './images/error.png');
+                $(slide).find('.name').text('載入失敗');
+                $(slide).find('.score').text('N/A');
+            });
         }
     });
 
@@ -272,14 +277,21 @@ $(document).ready(function () {
         // 隨機排序結果
         results.sort(function () { return 0.5 - Math.random() });
 
+        // 過濾片名為中文或英文的結果
+        var filteredResults = results.filter(function (result) {
+            var title = result.name;
+            // 檢查是否包含中文字符或英文字母
+            return /[\u4e00-\u9fa5]/.test(title) || /[a-zA-Z]/.test(title);
+        });
+
         $('.swiper_korean').each(function (index, slide) { // 遍歷 swiper-slide 元素
-            if (results[index]) {
-                var title = results[index].name;
-                var posterPath = results[index].poster_path;
-                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
-                var voteAverage = results[index].vote_average;
+            if (filteredResults[index]) {
+                var title = filteredResults[index].name;
+                var posterPath = filteredResults[index].poster_path;
+                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : './images/placeholder.png';
+                var voteAverage = filteredResults[index].vote_average;
                 var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
-                var showId = results[index].id;
+                var showId = filteredResults[index].id;
 
                 // 更新卡片內容
                 $(slide).find('.card_img').attr('src', posterUrl);
@@ -287,6 +299,12 @@ $(document).ready(function () {
                 $(slide).find('.score').text(formattedVoteAverage);
                 // 修改連結，加入 type=tv 參數
                 $(slide).find('a').attr('href', 'html/info.html?id=' + showId + '&type=tv');
+            } else {
+                // 如果沒有符合條件的結果，顯示預設值或隱藏卡片
+                $(slide).find('.card_img').attr('src', './images/placeholder.png');
+                $(slide).find('.name').text('無結果');
+                $(slide).find('.score').text('N/A');
+                $(slide).find('a').attr('href', '#'); // 或者隱藏卡片：$(slide).hide();
             }
         });
     }
