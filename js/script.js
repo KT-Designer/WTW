@@ -29,6 +29,11 @@ window.addEventListener('load', function () {
 
 
 
+
+
+
+
+
 // 首頁_index.html
 $(document).ready(function () {
     // Hero

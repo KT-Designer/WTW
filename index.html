@@ -125,7 +125,7 @@
 
 
     <!-- Loadiing -->
-    <div id="loading"></div>
+    <div id="loading_index"></div>
 
 
 
@@ -1333,6 +1333,8 @@
 
 
 
+
+
     <!-- 搜尋功能 -->
     <script>
         $(document).ready(function () {
@@ -1367,22 +1369,21 @@
 
     <!-- Loading -->
     <script>
-        const loadingAnimation = lottie.loadAnimation({
-            container: document.getElementById('loading'),
+        const loadingAnimation_index = lottie.loadAnimation({
+            container: document.getElementById('loading_index'),
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            path: 'images/loading.json' // 請替換為您的 JSON 檔案路徑
+            path: 'images/loading.json'
         });
 
-        // 網頁載入完成後，隱藏載入動畫
         window.addEventListener('load', function () {
-            // 添加延遲
             setTimeout(function () {
-                document.getElementById('loading').style.display = 'none';
-            }, 500); // 延遲 500 毫秒
+                document.getElementById('loading_index').style.display = 'none';
+            }, 500);
         });
     </script>
+
 
 
 

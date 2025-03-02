@@ -21,7 +21,8 @@ body a {
 
 
 /* Loading */
-#loading {
+#loading,
+#loading_index {
     position: fixed;
     top: 0;
     left: 0;
@@ -34,7 +35,8 @@ body a {
     z-index: 9999;
 }
 
-#loading svg {
+#loading svg,
+#loading_index svg {
     width: 120px !important;
     height: 120px !important;
     position: absolute;
