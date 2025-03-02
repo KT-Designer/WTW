@@ -252,7 +252,9 @@ $(document).ready(function () {
     // 格式化日期為YYYY-MM-DD
     var startDate = sixMonthsAgoYear + '-' + String(sixMonthsAgoMonth + 1).padStart(2, '0') + '-01';
 
-    var url = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey + '&language=zh-TW&sort_by=popularity.desc&with_original_language=ko&first_air_date.gte=' + startDate + '&include_null_first_air_dates=false';
+    var url = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey +
+        '&language=zh-TW&sort_by=popularity.desc&first_air_date.gte=' + oneYearAgoDate +
+        '&with_original_language=ko&page=' + page;
 
     $.ajax({
         url: url,
@@ -591,7 +593,7 @@ $(document).ready(function () {
             '战争': '戰爭',
             '电视电影': '電視電影',
             '新闻': '新聞',
-            '肥皂剧': '肥皂剧',
+            '肥皂剧': '肥皂劇',
             // 添加更多類型名稱對應
         };
 
@@ -875,7 +877,7 @@ $(document).ready(function () {
             '战争': '戰爭',
             '电视电影': '電視電影',
             '新闻': '新聞',
-            '肥皂剧': '肥皂剧',
+            '肥皂剧': '肥皂劇',
             // 添加更多類型名稱對應
         };
 
@@ -1176,8 +1178,8 @@ $(document).ready(function () {
 
     function fetchPage(page) {
         console.log('fetchPage: 正在載入第', page, '頁，總頁數：', totalPages);
-        var url = 'https://api.themoviedb.org/3/movie/popular?api_key=' + apiKey + '&language=zh-TW&page=' + page;
-
+        var url = 'https://api.themoviedb.org/3/movie/popular?api_key=' + apiKey +
+            '&language=zh-TW&page=' + page + '&with_original_language=en|ko|zh';
         $.ajax({
             url: url,
             type: 'GET',
@@ -1372,7 +1374,7 @@ $(document).ready(function () {
 
 
 
-// 影劇頁_drmam.html
+// 影集頁_drmam.html
 $(document).ready(function () {
     var allTVShows = [];
     var totalPages = 1;
@@ -1386,7 +1388,21 @@ $(document).ready(function () {
 
     function fetchTVShowsPage(page) {
         console.log('fetchTVShowsPage: 正在載入第', page, '頁，總頁數：', totalPages);
-        var url = 'https://api.themoviedb.org/3/tv/popular?api_key=' + apiKey + '&language=zh-TW&page=' + page;
+
+        // 計算一年前的日期
+        var oneYearAgo = new Date();
+        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        var year = oneYearAgo.getFullYear();
+        var month = ("0" + (oneYearAgo.getMonth() + 1)).slice(-2);
+        var day = ("0" + oneYearAgo.getDate()).slice(-2);
+        var oneYearAgoDate = year + "-" + month + "-" + day;
+
+        var url = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey +
+            '&language=zh-TW&sort_by=popularity.desc&first_air_date.gte=' + oneYearAgoDate + '&page=' + page;
+
+
+
+
 
         $.ajax({
             url: url,
@@ -1400,6 +1416,23 @@ $(document).ready(function () {
                     $('.loading').prop('disabled', false);
                     return;
                 }
+
+
+                // 過濾並排序結果，將韓劇放在前面
+                let koreanShows = data.results.filter(show => show.original_language === 'ko');
+                let otherShows = data.results.filter(show => show.original_language !== 'ko');
+                let sortedResults = koreanShows.concat(otherShows);
+
+                // 現在，sortedResults 變數包含了排序後的結果
+                // 您可以使用 sortedResults 變數來更新您的 UI 或進行其他操作
+                console.log(sortedResults);
+
+
+
+
+
+
+
                 if (page === 1) {
                     allTVShows = data.results;
                     console.log('fetchTVShowsPage: 第一頁，清空 allTVShows 並更新。');
@@ -1415,9 +1448,9 @@ $(document).ready(function () {
                     console.log('fetchTVShowsPage: 已達到最大頁數，隱藏載入更多按鈕。');
                 }
             },
-            error: function (error) {
-                console.error('fetchTVShowsPage: 發生錯誤：', error);
-                $('.loading').text('載入失敗，重試');
+            error: function (xhr, status, error) {
+                console.error('fetchTVShowsPage: 第', page, '頁載入失敗：', status, error);
+                $('.loading').text('載入失敗');
                 $('.loading').prop('disabled', false);
             },
             complete: function () {
