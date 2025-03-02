@@ -493,6 +493,32 @@
     <!-- 輪播套件 -->
     <script src="../js/swiper-bundle.min.js"></script>
 
+
+
+    <!-- Loading -->
+    <script>
+        const loadingAnimation = lottie.loadAnimation({
+            container: document.getElementById('loading'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '../images/loading.json' // 請替換為您的 JSON 檔案路徑
+        });
+
+        // 網頁載入完成後，隱藏載入動畫
+        window.addEventListener('load', function () {
+            // 添加延遲
+            setTimeout(function () {
+                document.getElementById('loading').style.display = 'none';
+            }, 1500); // 延遲 500 毫秒
+        });
+    </script>
+
+
+
+
+
+
 </body>
 
 </html>

@@ -1,39 +1,3 @@
-// Loading
-const loadingAnimation = lottie.loadAnimation({
-    container: document.getElementById('loading'),
-    renderer: 'svg',
-    loop: true,
-    autoplay: true,
-    path: '../images/loading.json' // 請替換為您的 JSON 檔案路徑
-});
-
-// 網頁載入完成後，隱藏載入動畫
-window.addEventListener('load', function () {
-    // 添加延遲
-    setTimeout(function () {
-        document.getElementById('loading').style.display = 'none';
-    }, 2000); // 延遲 500 毫秒
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 首頁_index.html
 $(document).ready(function () {
     // Hero
