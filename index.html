@@ -1324,12 +1324,13 @@
     <script src="./js/lottie.min.js"></script>
 
 
-
     <!-- 全站JS -->
     <script src="./js/script.js"></script>
     <script src="./js/data.js"></script>
     <!-- 輪播套件 -->
     <script src="./js/swiper-bundle.min.js"></script>
+
+
 
 
     <!-- 搜尋功能 -->
@@ -1365,7 +1366,7 @@
 
 
     <!-- Loading -->
-    <script src="">
+    <script>
         const loadingAnimation = lottie.loadAnimation({
             container: document.getElementById('loading'),
             renderer: 'svg',
@@ -1379,9 +1380,11 @@
             // 添加延遲
             setTimeout(function () {
                 document.getElementById('loading').style.display = 'none';
-            }, 1000); // 延遲 500 毫秒
+            }, 500); // 延遲 500 毫秒
         });
     </script>
+
+
 
 
 
