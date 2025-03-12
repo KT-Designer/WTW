@@ -239,28 +239,20 @@ const MmRlYTI0N2 = '031a42de';
 $(document).ready(function () {
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
-    var currentMonth = currentDate.getMonth(); // 0-11
-    var eightMonthsAgoMonth = currentMonth - 8;
-    var eightMonthsAgoYear = currentYear;
+    var previousYear = currentYear - 1; // 計算前一年的年份
+    var startDate = previousYear + '-' + String(currentDate.getMonth() + 1).padStart(2, '0') + '-' + String(currentDate.getDate()).padStart(2, '0'); // 使用前一年的年份，和當前月份與日期
 
-    if (eightMonthsAgoMonth < 0) {
-        eightMonthsAgoYear--;
-        eightMonthsAgoMonth += 12;
-    }
-
-    // 格式化日期為 YYYY-MM-DD
-    var startDate = eightMonthsAgoYear + '-' + String(eightMonthsAgoMonth + 1).padStart(2, '0') + '-01';
 
     var url = 'https://api.themoviedb.org/3/discover/tv?api_key=' + apiKey +
         '&language=zh-TW&sort_by=popularity.desc&with_original_language=ko&first_air_date.gte=' + startDate +
-        '&include_null_first_air_dates=false';
+        '&include_null_first_air_dates=false&without_genres=16';
 
     $.ajax({
         url: url,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            updateCards(data.results.slice(0, 15)); // 只取前 15 個結果
+            updateCards(data.results.slice(0, 25)); // 只取前 15 個結果
         },
         error: function (error) {
             console.error('Error:', error);
@@ -301,10 +293,7 @@ $(document).ready(function () {
                 $(slide).find('a').attr('href', 'html/info.html?id=' + showId + '&type=tv');
             } else {
                 // 如果沒有符合條件的結果，顯示預設值或隱藏卡片
-                $(slide).find('.card_img').attr('src', './images/placeholder.png');
-                $(slide).find('.name').text('無結果');
-                $(slide).find('.score').text('N/A');
-                $(slide).find('a').attr('href', '#'); // 或者隱藏卡片：$(slide).hide();
+                $(slide).hide();
             }
         });
     }
