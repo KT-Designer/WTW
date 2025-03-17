@@ -216,7 +216,7 @@ $(document).ready(function () {
             if (results[index]) {
                 var title = results[index].title;
                 var posterPath = results[index].poster_path;
-                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : '../images/placeholder.png';
+                var posterUrl = posterPath ? 'https://image.tmdb.org/t/p/w500' + posterPath : './images/placeholder.png';
                 var voteAverage = results[index].vote_average;
                 var formattedVoteAverage = voteAverage ? voteAverage.toFixed(1) : 'N/A';
                 var movieId = results[index].id;
