@@ -28,13 +28,70 @@ $(document).ready(function () {
     });
 });
 
-const MDU0OTAzMWE = '0549';
+
 
 
 
 
 // 首頁_index.html
 // Hero
+$(document).ready(function () {
+    // 遍歷所有輪播項目
+    $('.swiper_hero').each(function () {
+        const $slide = $(this);
+        const movieId = $slide.data('id');
+        const mediaType = $slide.data('media-type');
+        const moreLink = $slide.find('.more-link');
+
+        // 生成連結
+        moreLink.attr('href', `html/info.html?id=${movieId}&type=${mediaType}`);
+
+        // 獲取評分資料
+        const apiUrl = `https://api.themoviedb.org/3/${mediaType}/${movieId}?api_key=${apiKey}&language=zh-TW`;
+        $.ajax({
+            url: apiUrl,
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log('API 回應資料：', data); // 輸出 API 回應資料
+                if (data && data.vote_average) {
+                    $slide.find('.rating').text(data.vote_average.toFixed(1));
+                } else {
+                    console.error('API 回應資料不完整！', data);
+                }
+            },
+            error: function (error) {
+                console.error('獲取 TMDB 資料時發生錯誤：', error);
+            }
+        });
+
+        // 檢查收藏狀態
+        checkFavoriteStatus($slide, movieId, mediaType);
+    });
+
+});
+
+
+
+
+
+
+
+const MDU0OTAzMWE = '0549';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(document).ready(function () {
     // 生成連結的程式碼
     $('.swiper_hero').each(function () {
@@ -44,6 +101,7 @@ $(document).ready(function () {
         const moreLink = slide.find('.more-link');
 
         moreLink.attr('href', `html/info.html?id=${id}&type=${mediaType}`);
+
 
         // 在頁面載入時檢查收藏狀態
         checkFavoriteStatus(slide, id, mediaType);
