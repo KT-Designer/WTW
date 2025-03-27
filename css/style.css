@@ -318,7 +318,6 @@ body a {
     z-index: 3;
     cursor: pointer;
 
-
 }
 
 .hero .swiper-slide {
@@ -1599,7 +1598,8 @@ footer p {
     }
 
     .info .more,
-    .info .add {
+    .info .add,
+    .info .hero_add {
         font-size: 1.3rem;
     }
 
